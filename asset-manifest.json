@@ -1,0 +1,10 @@
+{
+  "files": {
+    "main.js": "/coincap-clone/static/js/main.f3cac402.js",
+    "index.html": "/coincap-clone/index.html",
+    "main.f3cac402.js.map": "/coincap-clone/static/js/main.f3cac402.js.map"
+  },
+  "entrypoints": [
+    "static/js/main.f3cac402.js"
+  ]
+}
