@@ -1,4 +1,4 @@
-import React from 'react';
+import './globalStyles.scss';
 
 export const App = () => {
     return <div>App</div>;
