@@ -1,7 +1,12 @@
-import { PrimaryButton } from 'components';
+import { AddToPortfolioModal, PrimaryButton } from 'components';
+import { useToggle } from 'hooks';
 import './styles.scss';
 
 export const DetailsPage = () => {
+    const [isOpenModal, toggleModal] = useToggle();
+    const handleOpenModal = () => {
+        toggleModal();
+    };
     return (
         <div className="details-container">
             <div className="details-container__column">
@@ -18,10 +23,14 @@ export const DetailsPage = () => {
                 <p className="details-container__item">Supply: 19.33m BTC</p>
                 <PrimaryButton
                     type="button"
-                    onClick={() => console.log('add')}
+                    onClick={handleOpenModal}
                     label="Add to Portfolio"
                 />
             </div>
+            <AddToPortfolioModal
+                isOpenModal={isOpenModal}
+                toggleModal={toggleModal}
+            />
         </div>
     );
 };

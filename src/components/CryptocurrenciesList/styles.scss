@@ -41,7 +41,13 @@
                     height: 32px;
                 }
                 .cryptocurrency-name {
+                    color: #3861fb;
+                    font-weight: bold;
                     font-size: 14px;
+
+                    &:hover {
+                        text-decoration: underline;
+                    }
                 }
             }
         }

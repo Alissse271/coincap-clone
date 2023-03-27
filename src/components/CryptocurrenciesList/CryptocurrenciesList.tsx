@@ -1,6 +1,8 @@
 import { portfolioIcon } from 'assets';
 import { AddToPortfolioModal, Button } from 'components';
 import { useToggle, useWindowSize } from 'hooks';
+import { generatePath, Link } from 'react-router-dom';
+import { ROUTE } from 'router';
 import './styles.scss';
 
 export const CryptocurrenciesList = () => {
@@ -33,17 +35,20 @@ export const CryptocurrenciesList = () => {
                     <tr>
                         {width > 768 && <td>1</td>}
                         <td>
-                            <div className="cryptocurrency-wrapper">
-                                <img
-                                    src={portfolioIcon}
-                                    alt="BTC"
-                                    className="cryptocurrency-logo"
-                                />
-                                <div className="cryptocurrency-name">
-                                    <p>Bitcoin</p>
-                                    <p>BTC</p>
+                            <Link to={generatePath(ROUTE.HOME + ROUTE.DETAILS)}>
+                                {/* , { id: id } */}
+                                <div className="cryptocurrency-wrapper">
+                                    <img
+                                        src={portfolioIcon}
+                                        alt="BTC"
+                                        className="cryptocurrency-logo"
+                                    />
+                                    <div className="cryptocurrency-name">
+                                        <p>Bitcoin</p>
+                                        <p>BTC</p>
+                                    </div>
                                 </div>
-                            </div>
+                            </Link>
                         </td>
                         <td>$27954.45</td>
                         {width > 768 && <td>$540.36b</td>}
