@@ -1,7 +1,14 @@
 import './styles.scss';
 import { portfolioIcon } from 'assets';
 
-export const Portfolio = () => {
+interface Props {
+    toggleModal: () => void;
+}
+
+export const Portfolio = ({ toggleModal }: Props) => {
+    const handleOpenModal = () => {
+        toggleModal();
+    };
     return (
         <div className="portfolio">
             <div className="portfolio-info">
@@ -11,7 +18,11 @@ export const Portfolio = () => {
                 <p className="portfolio-info__item">(1,80%)</p>
             </div>
 
-            <button type="button" className="portfolio-button">
+            <button
+                type="button"
+                className="portfolio-button"
+                onClick={handleOpenModal}
+            >
                 <img
                     src={portfolioIcon}
                     alt="Portfolio"

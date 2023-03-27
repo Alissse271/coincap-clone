@@ -1,7 +1,9 @@
-import { Portfolio } from 'components';
+import { Portfolio, PortfolioModal } from 'components';
+import { useToggle } from 'hooks';
 import './styles.scss';
 
 export const Header = () => {
+    const [isOpenModal, toggleModal] = useToggle();
     return (
         <header className="header">
             <ul className="header-currencies">
@@ -9,7 +11,11 @@ export const Header = () => {
                 <li className="header-currencies__item">Ethereum: $1756.54</li>
                 <li className="header-currencies__item">Tether: $1.00</li>
             </ul>
-            <Portfolio />
+            <Portfolio toggleModal={toggleModal} />
+            <PortfolioModal
+                toggleModal={toggleModal}
+                isOpenModal={isOpenModal}
+            />
         </header>
     );
 };
