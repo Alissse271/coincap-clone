@@ -1,0 +1,46 @@
+.cryptocurrencies {
+    max-width: 1400px;
+    width: 100%;
+    margin: 0 auto;
+    margin-top: 100px;
+
+    &-table {
+        width: 100%;
+
+        border-collapse: separate;
+        border-spacing: 20px;
+
+        @media (max-width: 568px) {
+            font-size: 14px;
+            border-spacing: 10px;
+        }
+
+        &__head {
+            tr {
+                th {
+                    text-align: left;
+                }
+            }
+        }
+        &__body {
+            tr {
+                th {
+                }
+            }
+
+            .cryptocurrency-wrapper {
+                display: flex;
+                align-items: center;
+                column-gap: 5px;
+
+                .cryptocurrency-logo {
+                    width: 32px;
+                    height: 32px;
+                }
+                .cryptocurrency-name {
+                    font-size: 14px;
+                }
+            }
+        }
+    }
+}
