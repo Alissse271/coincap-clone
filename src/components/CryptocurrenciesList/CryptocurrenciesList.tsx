@@ -1,10 +1,14 @@
 import { portfolioIcon } from 'assets';
-import { Button } from 'components';
-import { useWindowSize } from 'hooks';
+import { AddToPortfolioModal, Button } from 'components';
+import { useToggle, useWindowSize } from 'hooks';
 import './styles.scss';
 
 export const CryptocurrenciesList = () => {
+    const [isOpenModal, toggleModal] = useToggle();
     const { width = 0 } = useWindowSize();
+    const handleOpenModal = () => {
+        toggleModal();
+    };
     return (
         <main className="cryptocurrencies">
             <table className="cryptocurrencies-table">
@@ -56,12 +60,16 @@ export const CryptocurrenciesList = () => {
                             <Button
                                 type="button"
                                 label="+"
-                                onClick={() => console.log('press')}
+                                onClick={handleOpenModal}
                             />
                         </td>
                     </tr>
                 </tbody>
             </table>
+            <AddToPortfolioModal
+                isOpenModal={isOpenModal}
+                toggleModal={toggleModal}
+            />
         </main>
     );
 };
