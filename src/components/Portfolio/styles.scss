@@ -1,0 +1,31 @@
+.portfolio {
+    display: flex;
+    align-items: center;
+    column-gap: 10px;
+
+    &-info {
+        display: flex;
+        column-gap: 5px;
+        &__item {
+            font-weight: bold;
+        }
+
+        @media (max-width: 568px) {
+            display: block;
+            font-size: 14px;
+        }
+    }
+
+    @media (max-width: 568px) {
+        align-items: flex-start;
+    }
+
+    &-button {
+        width: 30px;
+        height: 30px;
+        &__image {
+            width: 100%;
+            height: 100%;
+        }
+    }
+}

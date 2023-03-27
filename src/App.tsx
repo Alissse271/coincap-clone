@@ -1,5 +1,10 @@
+import { Header } from 'components';
 import './globalStyles.scss';
 
 export const App = () => {
-    return <div>App</div>;
+    return (
+        <div>
+            <Header />
+        </div>
+    );
 };
