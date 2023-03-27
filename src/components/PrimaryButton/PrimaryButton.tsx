@@ -9,7 +9,7 @@ interface ButtonProps {
 
 export const PrimaryButton = ({ type, label, onClick }: ButtonProps) => {
     return (
-        <button type={type} onClick={onClick} className="button">
+        <button type={type} onClick={onClick} className="primary-button">
             {label}
         </button>
     );

@@ -1,5 +1,7 @@
+import { RouterProvider } from 'react-router-dom';
+import { Router } from 'router';
 import './globalStyles.scss';
 
 export const App = () => {
-    return <div></div>;
+    return <RouterProvider router={Router} />;
 };
