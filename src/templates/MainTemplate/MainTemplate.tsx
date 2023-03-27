@@ -1,5 +1,10 @@
+import { Header } from 'components';
 import './styles.scss';
 
 export const MainTemplate = () => {
-    return <div>MainTemplate</div>;
+    return (
+        <div>
+            <Header />
+        </div>
+    );
 };

@@ -4,6 +4,7 @@ import { CryptocurrenciesList } from './CryptocurrenciesList/CryptocurrenciesLis
 import { Header } from './Header/Header';
 import { Portfolio } from './Portfolio/Portfolio';
 import { PortfolioModal } from './PortfolioModal/PortfolioModal';
+import { PrimaryButton } from './PrimaryButton/PrimaryButton';
 
 export {
     CryptocurrenciesList,
@@ -12,4 +13,5 @@ export {
     Button,
     PortfolioModal,
     AddToPortfolioModal,
+    PrimaryButton,
 };
