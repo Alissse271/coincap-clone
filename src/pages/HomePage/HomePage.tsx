@@ -3,7 +3,7 @@ import './styles.scss';
 
 export const HomePage = () => {
     return (
-        <div>
+        <div className="container">
             <CryptocurrenciesList />
             <PrimaryButton
                 type="button"
