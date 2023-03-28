@@ -1,15 +1,25 @@
 import { Portfolio, PortfolioModal } from 'components';
+import { Currency, CurrencyContext } from 'context';
 import { useToggle } from 'hooks';
+import { useContext, useEffect } from 'react';
+import { roundToHundredths } from 'utils';
 import './styles.scss';
 
 export const Header = () => {
     const [isOpenModal, toggleModal] = useToggle();
+    const { fetchCurrencies, currencies } = useContext(CurrencyContext);
+
+    useEffect(() => {
+        fetchCurrencies(3);
+    }, []);
     return (
         <header className="header">
             <ul className="header-currencies">
-                <li className="header-currencies__item">Bitcoin: $27834.01</li>
-                <li className="header-currencies__item">Ethereum: $1756.54</li>
-                <li className="header-currencies__item">Tether: $1.00</li>
+                {currencies?.map(({ id, name, priceUsd }: Currency) => (
+                    <li key={id} className="header-currencies__item">
+                        {name}: ${roundToHundredths(priceUsd)}
+                    </li>
+                ))}
             </ul>
             <Portfolio toggleModal={toggleModal} />
             <PortfolioModal

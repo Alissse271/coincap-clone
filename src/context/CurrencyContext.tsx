@@ -18,6 +18,8 @@ export interface Currency {
 interface CurrencyContextProps {
     currencies: Currency[];
     currencyDetails: Currency;
+    limit: number;
+    fetchCurrencies: (limit: number) => void;
     showMoreCurrencies: () => void;
     fetchCurrencyDetails: (id: string) => void;
 }
@@ -29,8 +31,10 @@ interface Props {
 export const CurrencyContext = createContext<CurrencyContextProps>({
     currencies: [],
     currencyDetails: {} as Currency,
+    limit: 0,
+    fetchCurrencies: () => {},
     showMoreCurrencies: () => {},
-    fetchCurrencyDetails: async (id: string) => {},
+    fetchCurrencyDetails: async () => {},
 });
 
 export const CurrencyContextProvider = ({ children }: Props) => {
@@ -44,7 +48,7 @@ export const CurrencyContextProvider = ({ children }: Props) => {
         const response = await axios.get(
             `https://api.coincap.io/v2/assets?limit=${limit}`
         );
-
+        setLimit(limit);
         setCurrencies(response.data.data);
     };
 
@@ -65,15 +69,13 @@ export const CurrencyContextProvider = ({ children }: Props) => {
         setLimit((prevLimit) => prevLimit + 20);
     };
 
-    useEffect(() => {
-        fetchCurrencies(limit);
-    }, [limit]);
-
     return (
         <CurrencyContext.Provider
             value={{
                 currencies,
                 currencyDetails,
+                limit,
+                fetchCurrencies,
                 showMoreCurrencies,
                 fetchCurrencyDetails,
             }}

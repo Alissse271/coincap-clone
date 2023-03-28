@@ -1,13 +1,18 @@
 import { CryptocurrenciesList, PrimaryButton } from 'components';
 import { CurrencyContext } from 'context';
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import './styles.scss';
 
 export const HomePage = () => {
-    const { showMoreCurrencies } = useContext(CurrencyContext);
+    const { showMoreCurrencies, fetchCurrencies, limit } =
+        useContext(CurrencyContext);
     const handleShowMore = () => {
         showMoreCurrencies();
     };
+
+    useEffect(() => {
+        fetchCurrencies(limit);
+    }, [limit]);
     return (
         <div className="container">
             <CryptocurrenciesList />
