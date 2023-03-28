@@ -1,8 +1,11 @@
 import { portfolioIcon } from 'assets';
 import { AddToPortfolioModal, Button } from 'components';
+import { Currency, CurrencyContext } from 'context';
 import { useToggle, useWindowSize } from 'hooks';
+import { useContext } from 'react';
 import { generatePath, Link } from 'react-router-dom';
 import { ROUTE } from 'router';
+import { roundToBillion, roundToHundredths, roundToMillion } from 'utils';
 import './styles.scss';
 
 export const CryptocurrenciesList = () => {
@@ -11,6 +14,7 @@ export const CryptocurrenciesList = () => {
     const handleOpenModal = () => {
         toggleModal();
     };
+    const { currencies } = useContext(CurrencyContext);
     return (
         <main className="cryptocurrencies">
             <table className="cryptocurrencies-table">
@@ -31,44 +35,68 @@ export const CryptocurrenciesList = () => {
                         <th>Add</th>
                     </tr>
                 </thead>
-                <tbody className="cryptocurrencies-table__body">
-                    <tr>
-                        {width > 768 && <td>1</td>}
-                        <td>
-                            <Link to={generatePath(ROUTE.HOME + ROUTE.DETAILS)}>
-                                {/* , { id: id } */}
-                                <div className="cryptocurrency-wrapper">
-                                    <img
-                                        src={portfolioIcon}
-                                        alt="BTC"
-                                        className="cryptocurrency-logo"
-                                    />
-                                    <div className="cryptocurrency-name">
-                                        <p>Bitcoin</p>
-                                        <p>BTC</p>
-                                    </div>
-                                </div>
-                            </Link>
-                        </td>
-                        <td>$27954.45</td>
-                        {width > 768 && <td>$540.36b</td>}
-                        {width > 1024 && (
-                            <>
-                                <td>$27952.85</td>
-                                <td>19.33m</td>
-                            </>
-                        )}
 
-                        {width > 768 && <td>$4.68b</td>}
-                        <td>0.85%</td>
-                        <td>
-                            <Button
-                                type="button"
-                                label="+"
-                                onClick={handleOpenModal}
-                            />
-                        </td>
-                    </tr>
+                <tbody className="cryptocurrencies-table__body">
+                    {currencies?.map(
+                        ({
+                            id,
+                            rank,
+                            symbol,
+                            name,
+                            supply,
+                            marketCapUsd,
+                            volumeUsd24Hr,
+                            priceUsd,
+                            changePercent24Hr,
+                            vwap24Hr,
+                        }: Currency) => (
+                            <tr key={id}>
+                                {width > 768 && <td>{rank}</td>}
+                                <td>
+                                    <Link
+                                        to={generatePath(
+                                            ROUTE.HOME + ROUTE.DETAILS
+                                        )}
+                                    >
+                                        {/* , { id: id } */}
+                                        <div className="cryptocurrency-wrapper">
+                                            <img
+                                                src={portfolioIcon}
+                                                alt="BTC"
+                                                className="cryptocurrency-logo"
+                                            />
+                                            <div className="cryptocurrency-name">
+                                                <p>{name}</p>
+                                                <p>{symbol}</p>
+                                            </div>
+                                        </div>
+                                    </Link>
+                                </td>
+                                <td>${roundToHundredths(priceUsd)}</td>
+                                {width > 768 && (
+                                    <td>${roundToBillion(marketCapUsd)}</td>
+                                )}
+                                {width > 1024 && (
+                                    <>
+                                        <td>${roundToHundredths(vwap24Hr)}</td>
+                                        <td>{roundToMillion(supply)}</td>
+                                    </>
+                                )}
+
+                                {width > 768 && (
+                                    <td>${roundToBillion(volumeUsd24Hr)}</td>
+                                )}
+                                <td>{roundToHundredths(changePercent24Hr)}%</td>
+                                <td>
+                                    <Button
+                                        type="button"
+                                        label="+"
+                                        onClick={handleOpenModal}
+                                    />
+                                </td>
+                            </tr>
+                        )
+                    )}
                 </tbody>
             </table>
             <AddToPortfolioModal
