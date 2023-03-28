@@ -55,10 +55,10 @@ export const CryptocurrenciesList = () => {
                                 <td>
                                     <Link
                                         to={generatePath(
-                                            ROUTE.HOME + ROUTE.DETAILS
+                                            ROUTE.HOME + ROUTE.DETAILS,
+                                            { id: id }
                                         )}
                                     >
-                                        {/* , { id: id } */}
                                         <div className="cryptocurrency-wrapper">
                                             <img
                                                 src={portfolioIcon}

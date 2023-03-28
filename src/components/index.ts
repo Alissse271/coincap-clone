@@ -1,6 +1,7 @@
 import { AddToPortfolioModal } from './AddToPortfolioModal/AddToPortfolioModal';
 import { Button } from './Button/Button';
 import { CryptocurrenciesList } from './CryptocurrenciesList/CryptocurrenciesList';
+import { CurrencyDetails } from './CurrencyDetails/CurrencyDetails';
 import { Header } from './Header/Header';
 import { Portfolio } from './Portfolio/Portfolio';
 import { PortfolioModal } from './PortfolioModal/PortfolioModal';
@@ -14,4 +15,5 @@ export {
     PortfolioModal,
     AddToPortfolioModal,
     PrimaryButton,
+    CurrencyDetails,
 };
