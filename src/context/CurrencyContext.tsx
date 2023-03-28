@@ -17,9 +17,11 @@ export interface Currency {
 
 interface CurrencyContextProps {
     currencies: Currency[];
+    basicCurrencies: Currency[];
     currencyDetails: Currency;
     limit: number;
     fetchCurrencies: (limit: number) => void;
+    fetchBasicCurrencies: () => void;
     showMoreCurrencies: () => void;
     fetchCurrencyDetails: (id: string) => void;
 }
@@ -30,15 +32,18 @@ interface Props {
 
 export const CurrencyContext = createContext<CurrencyContextProps>({
     currencies: [],
+    basicCurrencies: [],
     currencyDetails: {} as Currency,
     limit: 0,
     fetchCurrencies: () => {},
+    fetchBasicCurrencies: () => {},
     showMoreCurrencies: () => {},
     fetchCurrencyDetails: async () => {},
 });
 
 export const CurrencyContextProvider = ({ children }: Props) => {
     const [currencies, setCurrencies] = useState<Currency[]>([]);
+    const [basicCurrencies, setBasicCurrencies] = useState<Currency[]>([]);
     const [currencyDetails, setCurrencyDetails] = useState<Currency>(
         {} as Currency
     );
@@ -50,6 +55,12 @@ export const CurrencyContextProvider = ({ children }: Props) => {
         );
         setLimit(limit);
         setCurrencies(response.data.data);
+    };
+    const fetchBasicCurrencies = async () => {
+        const response = await axios.get(
+            `https://api.coincap.io/v2/assets?limit=3`
+        );
+        setBasicCurrencies(response.data.data);
     };
 
     const fetchCurrencyDetails = async (id: string) => {
@@ -73,9 +84,11 @@ export const CurrencyContextProvider = ({ children }: Props) => {
         <CurrencyContext.Provider
             value={{
                 currencies,
+                basicCurrencies,
                 currencyDetails,
                 limit,
                 fetchCurrencies,
+                fetchBasicCurrencies,
                 showMoreCurrencies,
                 fetchCurrencyDetails,
             }}

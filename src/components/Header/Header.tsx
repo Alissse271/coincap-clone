@@ -7,15 +7,16 @@ import './styles.scss';
 
 export const Header = () => {
     const [isOpenModal, toggleModal] = useToggle();
-    const { fetchCurrencies, currencies } = useContext(CurrencyContext);
+    const { fetchBasicCurrencies, basicCurrencies } =
+        useContext(CurrencyContext);
 
     useEffect(() => {
-        fetchCurrencies(3);
+        fetchBasicCurrencies();
     }, []);
     return (
         <header className="header">
             <ul className="header-currencies">
-                {currencies?.map(({ id, name, priceUsd }: Currency) => (
+                {basicCurrencies.map(({ id, name, priceUsd }: Currency) => (
                     <li key={id} className="header-currencies__item">
                         {name}: ${roundToHundredths(priceUsd)}
                     </li>
