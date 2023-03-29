@@ -5,12 +5,24 @@ import { useParams } from 'react-router-dom';
 
 export const DetailsPage = () => {
     const { id = '' } = useParams();
-    const { fetchCurrencyDetails, currencyDetails } =
-        useContext(CurrencyContext);
+    const {
+        fetchCurrencyDetails,
+        currencyDetails,
+        labels,
+        chartData,
+        fetchCurrencyHistory,
+    } = useContext(CurrencyContext);
 
     useEffect(() => {
+        fetchCurrencyHistory(id);
         fetchCurrencyDetails(id);
     }, [id]);
 
-    return <CurrencyDetails currency={currencyDetails} />;
+    return (
+        <CurrencyDetails
+            currency={currencyDetails}
+            labels={labels}
+            chartData={chartData}
+        />
+    );
 };
