@@ -1,3 +1,5 @@
+import { ReactNode } from 'react';
+
 export interface Currency {
     id: string;
     rank: string;
@@ -21,4 +23,36 @@ export interface History {
 export interface HisoryResponse {
     data: History[];
     timestamp: number;
+}
+
+export interface CurrencyContextProps {
+    currencies: Currency[];
+    basicCurrencies: Currency[];
+    currencyDetails: Currency;
+    limit: number;
+    history: HisoryResponse;
+    labels: string[];
+    chartData: string[];
+    fetchCurrencies: (limit: number) => void;
+    fetchBasicCurrencies: () => void;
+    fetchCurrencyHistory: (id: string) => void;
+    showMoreCurrencies: () => void;
+    fetchCurrencyDetails: (id: string) => void;
+}
+
+export interface ContextProviderProps {
+    children: ReactNode;
+}
+
+export interface PortfolioCurrency {
+    name: string;
+    symbol: string;
+    amount: number;
+    price: string;
+}
+
+export interface PortfolioCurrencyContextProps {
+    portfolioCurrencies: PortfolioCurrency[];
+    addCurrency: (currency: PortfolioCurrency, amount: number) => void;
+    removeCurrency: (name: string) => void;
 }

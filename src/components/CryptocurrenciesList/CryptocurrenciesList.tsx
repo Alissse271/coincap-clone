@@ -1,20 +1,36 @@
 import { AddToPortfolioModal, Button } from 'components';
-import { Currency, CurrencyContext } from 'context';
+import {
+    Currency,
+    CurrencyContext,
+    PortfolioContext,
+    PortfolioCurrency,
+} from 'context';
 import { motion } from 'framer-motion';
 import { useToggle, useWindowSize } from 'hooks';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { generatePath, Link } from 'react-router-dom';
 import { ROUTE } from 'router';
 import { roundToBillion, roundToHundredths, roundToMillion } from 'utils';
 import './styles.scss';
 
 export const CryptocurrenciesList = () => {
+    const [currency, setCurrency] = useState<PortfolioCurrency>(
+        {} as PortfolioCurrency
+    );
+    const { currencies } = useContext(CurrencyContext);
     const [isOpenModal, toggleModal] = useToggle();
     const { width = 0 } = useWindowSize();
-    const handleOpenModal = () => {
+    const handleSubmit = (name: string, symbol: string, price: string) => {
+        const currency = {
+            name: name,
+            symbol: symbol,
+            price: price,
+            amount: 0,
+        };
+        setCurrency(currency);
         toggleModal();
     };
-    const { currencies } = useContext(CurrencyContext);
+
     return (
         <main className="cryptocurrencies">
             <table className="cryptocurrencies-table">
@@ -50,11 +66,7 @@ export const CryptocurrenciesList = () => {
                             changePercent24Hr,
                             vwap24Hr,
                         }: Currency) => (
-                            <motion.tr
-                                key={id}
-                                whileHover={{ scale: 1.01 }}
-                                whileTap={{ scale: 0.98 }}
-                            >
+                            <motion.tr key={id} whileHover={{ scale: 1.01 }}>
                                 {width > 768 && <td>{rank}</td>}
                                 <td>
                                     <Link
@@ -88,7 +100,9 @@ export const CryptocurrenciesList = () => {
                                     <Button
                                         type="button"
                                         label="+"
-                                        onClick={handleOpenModal}
+                                        onClick={() =>
+                                            handleSubmit(name, symbol, priceUsd)
+                                        }
                                     />
                                 </td>
                             </motion.tr>
@@ -99,6 +113,7 @@ export const CryptocurrenciesList = () => {
             <AddToPortfolioModal
                 isOpenModal={isOpenModal}
                 toggleModal={toggleModal}
+                currency={currency}
             />
         </main>
     );

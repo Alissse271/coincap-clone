@@ -1,26 +1,12 @@
 import axios from 'axios';
-import { createContext, ReactNode, useState } from 'react';
+import { createContext, useState } from 'react';
 import { convertDate, roundToHundredths } from 'utils';
-import { Currency, HisoryResponse } from './types';
-
-interface CurrencyContextProps {
-    currencies: Currency[];
-    basicCurrencies: Currency[];
-    currencyDetails: Currency;
-    limit: number;
-    history: HisoryResponse;
-    labels: string[];
-    chartData: string[];
-    fetchCurrencies: (limit: number) => void;
-    fetchBasicCurrencies: () => void;
-    fetchCurrencyHistory: (id: string) => void;
-    showMoreCurrencies: () => void;
-    fetchCurrencyDetails: (id: string) => void;
-}
-
-interface Props {
-    children: ReactNode;
-}
+import {
+    Currency,
+    CurrencyContextProps,
+    ContextProviderProps,
+    HisoryResponse,
+} from './types';
 
 export const CurrencyContext = createContext<CurrencyContextProps>({
     currencies: [],
@@ -37,7 +23,7 @@ export const CurrencyContext = createContext<CurrencyContextProps>({
     fetchCurrencyDetails: async () => {},
 });
 
-export const CurrencyContextProvider = ({ children }: Props) => {
+export const CurrencyContextProvider = ({ children }: ContextProviderProps) => {
     const [currencies, setCurrencies] = useState<Currency[]>([]);
     const [basicCurrencies, setBasicCurrencies] = useState<Currency[]>([]);
     const [currencyDetails, setCurrencyDetails] = useState<Currency>(
