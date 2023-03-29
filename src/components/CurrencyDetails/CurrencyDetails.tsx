@@ -1,6 +1,10 @@
+import { LeftArrow } from 'assets';
 import { AddToPortfolioModal, Chart, PrimaryButton } from 'components';
 import { Currency } from 'context';
+import { motion } from 'framer-motion';
 import { useToggle } from 'hooks';
+import { Link } from 'react-router-dom';
+import { ROUTE } from 'router';
 
 import { roundToBillion, roundToHundredths, roundToMillion } from 'utils';
 import './styles.scss';
@@ -30,7 +34,15 @@ export const CurrencyDetails = ({ currency, labels, chartData }: Props) => {
 
     return (
         <div className="details-wrapper">
-            <div className="details-container">
+            <Link to={ROUTE.HOME}>
+                <LeftArrow />
+            </Link>
+            <motion.div
+                className="details-container"
+                initial={{ opacity: 0, scale: 1 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 0.3, duration: 1.2 }}
+            >
                 <div className="details-container__column">
                     <p className="details-container__item">
                         {name} ({symbol}): ${roundToHundredths(priceUsd)}
@@ -61,10 +73,15 @@ export const CurrencyDetails = ({ currency, labels, chartData }: Props) => {
                     isOpenModal={isOpenModal}
                     toggleModal={toggleModal}
                 />
-            </div>
-            <div className="chart-wrapper">
+            </motion.div>
+            <motion.div
+                className="chart-wrapper"
+                initial={{ opacity: 0, scale: 0 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 0.2, duration: 1.0 }}
+            >
                 <Chart label={labels} chartData={chartData} name={name} />
-            </div>
+            </motion.div>
         </div>
     );
 };

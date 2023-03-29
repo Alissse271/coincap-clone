@@ -1,5 +1,6 @@
 import { AddToPortfolioModal, Button } from 'components';
 import { Currency, CurrencyContext } from 'context';
+import { motion } from 'framer-motion';
 import { useToggle, useWindowSize } from 'hooks';
 import { useContext } from 'react';
 import { generatePath, Link } from 'react-router-dom';
@@ -49,7 +50,11 @@ export const CryptocurrenciesList = () => {
                             changePercent24Hr,
                             vwap24Hr,
                         }: Currency) => (
-                            <tr key={id}>
+                            <motion.tr
+                                key={id}
+                                whileHover={{ scale: 1.01 }}
+                                whileTap={{ scale: 0.98 }}
+                            >
                                 {width > 768 && <td>{rank}</td>}
                                 <td>
                                     <Link
@@ -86,7 +91,7 @@ export const CryptocurrenciesList = () => {
                                         onClick={handleOpenModal}
                                     />
                                 </td>
-                            </tr>
+                            </motion.tr>
                         )
                     )}
                 </tbody>

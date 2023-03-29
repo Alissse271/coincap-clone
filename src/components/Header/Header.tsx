@@ -1,5 +1,6 @@
 import { Portfolio, PortfolioModal } from 'components';
 import { Currency, CurrencyContext } from 'context';
+import { motion } from 'framer-motion';
 import { useToggle } from 'hooks';
 import { useContext, useEffect } from 'react';
 import { Link, generatePath } from 'react-router-dom';
@@ -25,9 +26,14 @@ export const Header = () => {
                             id: id,
                         })}
                     >
-                        <li key={id} className="header-currencies__item">
+                        <motion.li
+                            key={id}
+                            className="header-currencies__item"
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.98 }}
+                        >
                             {name}: ${roundToHundredths(priceUsd)}
-                        </li>
+                        </motion.li>
                     </Link>
                 ))}
             </ul>
