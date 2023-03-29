@@ -1,4 +1,3 @@
-import { portfolioIcon } from 'assets';
 import { AddToPortfolioModal, Button } from 'components';
 import { Currency, CurrencyContext } from 'context';
 import { useToggle, useWindowSize } from 'hooks';
@@ -59,16 +58,9 @@ export const CryptocurrenciesList = () => {
                                             { id: id }
                                         )}
                                     >
-                                        <div className="cryptocurrency-wrapper">
-                                            <img
-                                                src={portfolioIcon}
-                                                alt="BTC"
-                                                className="cryptocurrency-logo"
-                                            />
-                                            <div className="cryptocurrency-name">
-                                                <p>{name}</p>
-                                                <p>{symbol}</p>
-                                            </div>
+                                        <div className="cryptocurrency-name">
+                                            <p>{name}</p>
+                                            <p>{symbol}</p>
                                         </div>
                                     </Link>
                                 </td>
@@ -84,7 +76,7 @@ export const CryptocurrenciesList = () => {
                                 )}
 
                                 {width > 768 && (
-                                    <td>${roundToBillion(volumeUsd24Hr)}</td>
+                                    <td>${roundToMillion(volumeUsd24Hr)}</td>
                                 )}
                                 <td>{roundToHundredths(changePercent24Hr)}%</td>
                                 <td>

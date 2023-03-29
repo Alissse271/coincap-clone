@@ -20,6 +20,7 @@ export const Header = () => {
             <ul className="header-currencies">
                 {basicCurrencies.map(({ id, name, priceUsd }: Currency) => (
                     <Link
+                        key={id}
                         to={generatePath(ROUTE.HOME + ROUTE.DETAILS, {
                             id: id,
                         })}

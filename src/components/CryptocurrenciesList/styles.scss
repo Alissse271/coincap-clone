@@ -31,23 +31,13 @@
                 }
             }
 
-            .cryptocurrency-wrapper {
-                display: flex;
-                align-items: center;
-                column-gap: 5px;
+            .cryptocurrency-name {
+                color: #3861fb;
+                font-weight: bold;
+                font-size: 14px;
 
-                .cryptocurrency-logo {
-                    width: 32px;
-                    height: 32px;
-                }
-                .cryptocurrency-name {
-                    color: #3861fb;
-                    font-weight: bold;
-                    font-size: 14px;
-
-                    &:hover {
-                        text-decoration: underline;
-                    }
+                &:hover {
+                    text-decoration: underline;
                 }
             }
         }

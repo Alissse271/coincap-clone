@@ -10,7 +10,6 @@ interface Props {
 
 export const CurrencyDetails = ({ currency }: Props) => {
     const {
-        id,
         rank,
         supply,
         name,
