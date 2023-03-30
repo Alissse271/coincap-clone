@@ -5,6 +5,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import './styles.scss';
 
 interface Currency {
+    id: string;
     name: string;
     symbol: string;
     price: string;

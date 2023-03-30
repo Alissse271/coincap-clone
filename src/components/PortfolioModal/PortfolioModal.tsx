@@ -1,7 +1,7 @@
 import { Portal, PortalTarget } from 'components';
 import { Button } from 'components/Button/Button';
 import { PortfolioContext, PortfolioCurrency } from 'context';
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect } from 'react';
 import './styles.scss';
 
 interface Props {
@@ -15,13 +15,13 @@ export const PortfolioModal = ({ isOpenModal, toggleModal }: Props) => {
         removeCurrency,
         totalPortfolioPrice,
         setTotalPrice,
+        updatePortfolio,
     } = useContext(PortfolioContext);
     const handleClose = () => {
         toggleModal();
     };
-    const handleRemoveCurrency = (name: string) => {
-        removeCurrency(name);
-        localStorage.setItem('portfolio', JSON.stringify(portfolioCurrencies));
+    const handleRemoveCurrency = (id: string) => {
+        removeCurrency(id);
     };
 
     const totalAmount = portfolioCurrencies
@@ -31,6 +31,12 @@ export const PortfolioModal = ({ isOpenModal, toggleModal }: Props) => {
     useEffect(() => {
         setTotalPrice(totalAmount);
     }, [totalAmount]);
+
+    useEffect(() => {
+        portfolioCurrencies.map(({ id, amount }) =>
+            updatePortfolio(id, amount)
+        );
+    }, []);
 
     useEffect(() => {
         if (isOpenModal) {
@@ -54,6 +60,7 @@ export const PortfolioModal = ({ isOpenModal, toggleModal }: Props) => {
                     <ul className="portfolio-list">
                         {portfolioCurrencies?.map(
                             ({
+                                id,
                                 name,
                                 symbol,
                                 amount,
@@ -77,9 +84,7 @@ export const PortfolioModal = ({ isOpenModal, toggleModal }: Props) => {
                                     <Button
                                         type="button"
                                         label="-"
-                                        onClick={() =>
-                                            handleRemoveCurrency(name)
-                                        }
+                                        onClick={() => handleRemoveCurrency(id)}
                                     />
                                 </li>
                             )

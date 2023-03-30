@@ -1,9 +1,9 @@
 import { LeftArrow } from 'assets';
 import { AddToPortfolioModal, Chart, PrimaryButton } from 'components';
-import { Currency, PortfolioContext, PortfolioCurrency } from 'context';
+import { Currency, PortfolioCurrency } from 'context';
 import { motion } from 'framer-motion';
 import { useToggle } from 'hooks';
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ROUTE } from 'router';
 
@@ -18,6 +18,7 @@ interface Props {
 
 export const CurrencyDetails = ({ currency, labels, chartData }: Props) => {
     const {
+        id,
         rank,
         supply,
         name,
@@ -32,8 +33,14 @@ export const CurrencyDetails = ({ currency, labels, chartData }: Props) => {
         {} as PortfolioCurrency
     );
     const [isOpenModal, toggleModal] = useToggle();
-    const handleSubmit = (name: string, symbol: string, price: string) => {
+    const handleSubmit = (
+        id: string,
+        name: string,
+        symbol: string,
+        price: string
+    ) => {
         const currency = {
+            id: id,
             name: name,
             symbol: symbol,
             price: price,
@@ -76,7 +83,7 @@ export const CurrencyDetails = ({ currency, labels, chartData }: Props) => {
                     </p>
                     <PrimaryButton
                         type="button"
-                        onClick={() => handleSubmit(name, symbol, priceUsd)}
+                        onClick={() => handleSubmit(id, name, symbol, priceUsd)}
                         label="Add to Portfolio"
                     />
                 </div>

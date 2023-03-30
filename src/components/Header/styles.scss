@@ -22,6 +22,10 @@
 
     z-index: 2;
 
+    @media (max-width: 568px) {
+        align-items: flex-start;
+    }
+
     &-currencies {
         display: flex;
         justify-content: flex-start;
@@ -29,6 +33,10 @@
 
         &__item {
             font-weight: bold;
+
+            @media (max-width: 425px) {
+                font-size: 12px;
+            }
         }
 
         @media (max-width: 768px) {

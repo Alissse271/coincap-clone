@@ -1,10 +1,5 @@
 import { AddToPortfolioModal, Button } from 'components';
-import {
-    Currency,
-    CurrencyContext,
-    PortfolioContext,
-    PortfolioCurrency,
-} from 'context';
+import { Currency, CurrencyContext, PortfolioCurrency } from 'context';
 import { motion } from 'framer-motion';
 import { useToggle, useWindowSize } from 'hooks';
 import { useContext, useState } from 'react';
@@ -20,8 +15,15 @@ export const CryptocurrenciesList = () => {
     const { currencies } = useContext(CurrencyContext);
     const [isOpenModal, toggleModal] = useToggle();
     const { width = 0 } = useWindowSize();
-    const handleSubmit = (name: string, symbol: string, price: string) => {
+
+    const handleSubmit = (
+        id: string,
+        name: string,
+        symbol: string,
+        price: string
+    ) => {
         const currency = {
+            id: id,
             name: name,
             symbol: symbol,
             price: price,
@@ -112,6 +114,7 @@ export const CryptocurrenciesList = () => {
                                             label="+"
                                             onClick={() =>
                                                 handleSubmit(
+                                                    id,
                                                     name,
                                                     symbol,
                                                     priceUsd
