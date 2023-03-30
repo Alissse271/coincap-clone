@@ -77,6 +77,18 @@
             }
         }
 
+        .empty-block-text {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex: 1 0 auto;
+
+            width: 100%;
+
+            font-size: 18px;
+            font-weight: bold;
+        }
+
         &-footer {
             display: flex;
             justify-content: flex-end;

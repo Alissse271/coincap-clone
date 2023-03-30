@@ -57,39 +57,51 @@ export const PortfolioModal = ({ isOpenModal, toggleModal }: Props) => {
                         <Button type="button" label="x" onClick={handleClose} />
                     </div>
 
-                    <ul className="portfolio-list">
-                        {portfolioCurrencies?.map(
-                            ({
-                                id,
-                                name,
-                                symbol,
-                                amount,
-                                price,
-                            }: PortfolioCurrency) => (
-                                <li key={name} className="portfolio-list__item">
-                                    <div className="cryptocurrency-wrapper">
-                                        <div className="cryptocurrency-name">
-                                            <p>{name}</p>
-                                            <p>{symbol}</p>
+                    {portfolioCurrencies.length ? (
+                        <ul className="portfolio-list">
+                            {portfolioCurrencies?.map(
+                                ({
+                                    id,
+                                    name,
+                                    symbol,
+                                    amount,
+                                    price,
+                                }: PortfolioCurrency) => (
+                                    <li
+                                        key={name}
+                                        className="portfolio-list__item"
+                                    >
+                                        <div className="cryptocurrency-wrapper">
+                                            <div className="cryptocurrency-name">
+                                                <p>{name}</p>
+                                                <p>{symbol}</p>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div className="amount-wrapper">
-                                        <p>Amount</p>
-                                        <p>{amount}</p>
-                                    </div>
-                                    <div className="price-wrapper">
-                                        <p>Price</p>
-                                        <p>${price}</p>
-                                    </div>
-                                    <Button
-                                        type="button"
-                                        label="-"
-                                        onClick={() => handleRemoveCurrency(id)}
-                                    />
-                                </li>
-                            )
-                        )}
-                    </ul>
+                                        <div className="amount-wrapper">
+                                            <p>Amount</p>
+                                            <p>{amount}</p>
+                                        </div>
+                                        <div className="price-wrapper">
+                                            <p>Price</p>
+                                            <p>${price}</p>
+                                        </div>
+                                        <Button
+                                            type="button"
+                                            label="-"
+                                            onClick={() =>
+                                                handleRemoveCurrency(id)
+                                            }
+                                        />
+                                    </li>
+                                )
+                            )}
+                        </ul>
+                    ) : (
+                        <p className="empty-block-text">
+                            Your portfolio is empty!
+                        </p>
+                    )}
+
                     <div className="portfolio-footer">
                         <p className="portfolio-footer__info">
                             Total: ${totalPortfolioPrice}

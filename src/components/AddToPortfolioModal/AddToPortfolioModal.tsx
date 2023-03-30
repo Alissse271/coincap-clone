@@ -71,6 +71,14 @@ export const AddToPortfolioModal = ({
                         <input
                             {...register('value', {
                                 required: '*value is required',
+                                maxLength: {
+                                    value: 5,
+                                    message: '*max 5 characters',
+                                },
+                                min: {
+                                    value: 0.1,
+                                    message: '*min value 0.1',
+                                },
                             })}
                             className="modal-main__input"
                             type="number"
