@@ -1,46 +1,100 @@
-# Getting Started with Create React App
+<!-- TABLE OF CONTENTS -->
+<details>
+  <summary>Table of Contents</summary>
+  <ol>
+    <li>
+      <a href="#about-the-project">About The Project</a>
+      <ul>
+        <li><a href="#built-with">Built With</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="#getting-started">Getting Started</a>
+      <ul>
+        <li><a href="#prerequisites">Prerequisites</a></li>
+        <li><a href="#installation">Installation</a></li>
+      </ul>
+    </li>
+    <li><a href="#usage">DEMO</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ol>
+</details>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<!-- ABOUT THE PROJECT -->
 
-## Available Scripts
+## About The Project
 
-In the project directory, you can run:
+This project was created to add and edit notes. During editing notes, you can add hashtags using a symbol `#` that are actually highlighted in blue. All hashtags are added to a separate list. You can edit or delete each note or press on the button `Delete all notes` to delete all. By using the field `Enter your #tag` you can find your note in the list by tag. Other features you can find out by testing it!
 
-### `npm start`
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### Built With
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+-   [![React][react.js]][react-url]
+-   [![React Router][reactrouter.com]][react-router-url]
+-   [![React Hook Form][react-hook-form.com]][react-hook-form-url]
+-   [![Axios][axios-http.com]][axios-url]
+-   [![Framer Motion][framer.com]][framer-url]
 
-### `npm test`
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+<!-- GETTING STARTED -->
 
-### `npm run build`
+## Getting Started
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Prerequisites
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+-   npm
+    ```sh
+    npm install npm@latest -g
+    ```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Installation
 
-### `npm run eject`
+1. Clone the repo
+    ```sh
+    git clone https://github.com/Alissse271/coincap-clone.git
+    ```
+2. Install NPM packages
+    ```sh
+    npm install
+    ```
+3. Run the project
+    ```sh
+    npm start
+    ```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+<!-- USAGE EXAMPLES -->
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+## DEMO
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+Demo version of the project [DEMO](https://alissse271.github.io/coincap-clone/)
 
-## Learn More
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+<!-- CONTACT -->
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Contact
+
+LinkedIn: [https://www.linkedin.com/in/alisa-gusarova/](linkedin)
+
+My email - [alice_2700@mail.ru](alice_2700@mail.ru)
+
+Project Link: [https://alissse271.github.io/coincap-clone/](https://alissse271.github.io/coincap-clone/)
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
+[linkedin-url]: https://www.linkedin.com/in/alisa-gusarova/
+[react-hook-form.com]: https://img.shields.io/badge/-react--hook--form-1e2a4a?style=for-the-badge&logo=react-hook-form&logoColor=ec5990
+[react-hook-form-url]: https://react-hook-form.com/
+[framer.com]: https://img.shields.io/badge/-framer--motion-DD0031?style=for-the-badge&logo=framer&logoColor=black
+[framer-url]: https://www.framer.com/
+[reactrouter.com]: https://img.shields.io/badge/React_Router-CA4245?style=for-the-badge&logo=react-router&logoColor=white
+[react-router-url]: https://reactrouter.com/
+[react.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
+[react-url]: https://reactjs.org/
+[axios-http.com]: https://img.shields.io/badge/-axios-671ddf?style=for-the-badge&logo=axios&logoColor=white
+[axios-url]: https://axios-http.com/ru/docs/intro

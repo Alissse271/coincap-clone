@@ -21,11 +21,9 @@ export const Portfolio = ({ toggleModal }: Props) => {
             localStorage.getItem('portfolioCost') || '0.00'
         );
         setOldTotalPortfolioPrice(portfolioCost);
-        localStorage.setItem(
-            'portfolioCost',
-            JSON.stringify(totalPortfolioPrice)
-        );
     }, [oldTotalPortfolioPrice]);
+
+    localStorage.setItem('portfolioCost', JSON.stringify(totalPortfolioPrice));
 
     const difference: string = String(
         (+totalPortfolioPrice - +oldTotalPortfolioPrice).toFixed(2)
