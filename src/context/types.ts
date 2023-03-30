@@ -53,6 +53,8 @@ export interface PortfolioCurrency {
 
 export interface PortfolioCurrencyContextProps {
     portfolioCurrencies: PortfolioCurrency[];
+    totalPortfolioPrice: string;
     addCurrency: (currency: PortfolioCurrency, amount: number) => void;
     removeCurrency: (name: string) => void;
+    setTotalPrice: (price: string) => void;
 }

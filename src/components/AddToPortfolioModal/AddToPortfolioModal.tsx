@@ -1,4 +1,4 @@
-import { Button } from 'components';
+import { Button, Portal, PortalTarget } from 'components';
 import { PortfolioContext } from 'context';
 import { useContext, useEffect } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
@@ -50,33 +50,45 @@ export const AddToPortfolioModal = ({
         localStorage.setItem('portfolio', JSON.stringify(portfolioCurrencies));
     }, [portfolioCurrencies]);
 
+    useEffect(() => {
+        if (isOpenModal) {
+            document.body.classList.add('modal-open');
+        } else {
+            document.body.classList.remove('modal-open');
+        }
+    }, [isOpenModal]);
+
     return (
-        <div className={`modal-background ${isOpenModal ? '' : 'none'}`}>
-            <form onSubmit={handleSubmit(onSubmit)} className="modal">
-                <div className="modal-header">
-                    <h2 className="modal-title">Add to portfolio</h2>
-                    <Button type="button" label="x" onClick={handleClose} />
-                </div>
-                <div className="modal-main">
-                    <input
-                        {...register('value', {
-                            required: '*value is required',
-                        })}
-                        className="modal-main__input"
-                        type="number"
-                        placeholder="Enter amount"
-                        step="0.1"
-                    />
-                    {errors.value && (
-                        <p className="input-error">{errors.value.message}</p>
-                    )}
-                </div>
-                <div className="modal-footer">
-                    <button type="submit" className="modal-footer__button">
-                        Submit
-                    </button>
-                </div>
-            </form>
-        </div>
+        <Portal target={PortalTarget.ADD_TO_PORTFOLIO}>
+            <div className={`modal-background ${isOpenModal ? '' : 'none'}`}>
+                <form onSubmit={handleSubmit(onSubmit)} className="modal">
+                    <div className="modal-header">
+                        <h2 className="modal-title">Add to portfolio</h2>
+                        <Button type="button" label="x" onClick={handleClose} />
+                    </div>
+                    <div className="modal-main">
+                        <input
+                            {...register('value', {
+                                required: '*value is required',
+                            })}
+                            className="modal-main__input"
+                            type="number"
+                            placeholder="Enter amount"
+                            step="0.1"
+                        />
+                        {errors.value && (
+                            <p className="input-error">
+                                {errors.value.message}
+                            </p>
+                        )}
+                    </div>
+                    <div className="modal-footer">
+                        <button type="submit" className="modal-footer__button">
+                            Submit
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </Portal>
     );
 };
