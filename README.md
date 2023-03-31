@@ -30,11 +30,11 @@ This project was created to add and edit notes. During editing notes, you can ad
 
 ### Built With
 
--   [![React][react.js]][react-url]
--   [![React Router][reactrouter.com]][react-router-url]
--   [![React Hook Form][react-hook-form.com]][react-hook-form-url]
--   [![Axios][axios-http.com]][axios-url]
--   [![Framer Motion][framer.com]][framer-url]
+- [![React][react.js]][react-url]
+- [![React Router][reactrouter.com]][react-router-url]
+- [![React Hook Form][react-hook-form.com]][react-hook-form-url]
+- [![Axios][axios-http.com]][axios-url]
+- [![Framer Motion][framer.com]][framer-url]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -44,25 +44,25 @@ This project was created to add and edit notes. During editing notes, you can ad
 
 ### Prerequisites
 
--   npm
-    ```sh
-    npm install npm@latest -g
-    ```
+- npm
+  ```sh
+  npm install npm@latest -g
+  ```
 
 ### Installation
 
 1. Clone the repo
-    ```sh
-    git clone https://github.com/Alissse271/coincap-clone.git
-    ```
+   ```sh
+   git clone https://github.com/Alissse271/coincap-clone.git
+   ```
 2. Install NPM packages
-    ```sh
-    npm install
-    ```
+   ```sh
+   npm install
+   ```
 3. Run the project
-    ```sh
-    npm start
-    ```
+   ```sh
+   npm start
+   ```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 

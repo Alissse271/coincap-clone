@@ -1,13 +1,13 @@
 .not-found-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
-    padding: 20px;
+  padding: 20px;
 
-    &__text {
-        font-size: 32px;
-        text-align: center;
-        color: '#AFB2B6';
-    }
+  &__text {
+    font-size: 32px;
+    text-align: center;
+    color: "#AFB2B6";
+  }
 }

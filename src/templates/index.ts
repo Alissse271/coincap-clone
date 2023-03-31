@@ -1,3 +1,3 @@
-import { MainTemplate } from './MainTemplate/MainTemplate';
+import { MainTemplate } from "./MainTemplate/MainTemplate";
 
 export { MainTemplate };

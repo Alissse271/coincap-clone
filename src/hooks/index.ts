@@ -1,4 +1,4 @@
-import { useToggle } from './useToggle';
-import { useWindowSize } from './useWindowSize';
+import { useToggle } from "./useToggle";
+import { useWindowSize } from "./useWindowSize";
 
 export { useWindowSize, useToggle };
