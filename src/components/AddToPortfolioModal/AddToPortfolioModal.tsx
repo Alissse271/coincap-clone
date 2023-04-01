@@ -1,6 +1,6 @@
 import { Button, Portal, PortalTarget } from "components";
-import { PortfolioContext } from "context";
-import { useContext, useEffect } from "react";
+import { PortfolioContext, PortfolioCurrency } from "context";
+import { useCallback, useContext, useEffect } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import "./styles.scss";
 
@@ -30,14 +30,14 @@ export const AddToPortfolioModal = ({ isOpenModal, toggleModal, currency }: Prop
     formState: { errors },
   } = useForm<FormValues>();
 
-  const handleClose = () => {
+  const handleClose = useCallback(() => {
     toggleModal();
     reset();
-  };
+  }, []);
 
   const onSubmit: SubmitHandler<FormValues> = ({ value }) => {
-    const price = String((+currency.price * value).toFixed(2));
-    const currencyToSet = { ...currency, price: price, amount: value };
+    const price: string = String((+currency.price * value).toFixed(2));
+    const currencyToSet: PortfolioCurrency = { ...currency, price: price, amount: value };
     addCurrency(currencyToSet, value);
     toggleModal();
     reset();

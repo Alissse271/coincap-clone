@@ -3,11 +3,11 @@ import { AddToPortfolioModal, Chart, PrimaryButton } from "components";
 import { Currency, PortfolioCurrency } from "context";
 import { motion } from "framer-motion";
 import { useToggle } from "hooks";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { Link } from "react-router-dom";
 import { ROUTE } from "router";
 
-import { roundToBillion, roundToHundredths, roundToMillion } from "utils";
+import { roundToBillion, roundWithPrecision, roundToMillion } from "utils";
 import "./styles.scss";
 
 interface Props {
@@ -29,9 +29,16 @@ export const CurrencyDetails = ({ currency, labels, chartData }: Props) => {
     volumeUsd24Hr,
   } = currency;
 
-  const [currencyToSet, setCurrencyToSet] = useState<PortfolioCurrency>({} as PortfolioCurrency);
+  const [currencyToSet, setCurrencyToSet] = useState<PortfolioCurrency>({
+    id: "",
+    name: "",
+    symbol: "",
+    amount: 0,
+    price: "",
+  });
   const [isOpenModal, toggleModal] = useToggle();
-  const handleSubmit = (id: string, name: string, symbol: string, price: string) => {
+
+  const handleSubmit = useCallback((id: string, name: string, symbol: string, price: string) => {
     const currency = {
       id: id,
       name: name,
@@ -41,7 +48,7 @@ export const CurrencyDetails = ({ currency, labels, chartData }: Props) => {
     };
     setCurrencyToSet(currency);
     toggleModal();
-  };
+  }, []);
 
   return (
     <div className="details-wrapper">
@@ -56,9 +63,11 @@ export const CurrencyDetails = ({ currency, labels, chartData }: Props) => {
       >
         <div className="details-container__column">
           <p className="details-container__item">
-            {name} ({symbol}): ${roundToHundredths(priceUsd)}
+            {name} ({symbol}): ${roundWithPrecision(priceUsd, 2)}
           </p>
-          <p className="details-container__item">Change: {roundToHundredths(changePercent24Hr)}%</p>
+          <p className="details-container__item">
+            Change: {roundWithPrecision(changePercent24Hr, 2)}%
+          </p>
           <p className="details-container__item">Rank: {rank}</p>
         </div>
 

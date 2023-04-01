@@ -2,19 +2,25 @@ import { AddToPortfolioModal, Button } from "components";
 import { Currency, CurrencyContext, PortfolioCurrency } from "context";
 import { motion } from "framer-motion";
 import { useToggle, useWindowSize } from "hooks";
-import { useContext, useState } from "react";
+import { useCallback, useContext, useState } from "react";
 import { generatePath, Link } from "react-router-dom";
 import { ROUTE } from "router";
-import { roundToBillion, roundToHundredths, roundToMillion } from "utils";
+import { roundToBillion, roundWithPrecision, roundToMillion } from "utils";
 import "./styles.scss";
 
 export const CryptocurrenciesList = () => {
-  const [currency, setCurrency] = useState<PortfolioCurrency>({} as PortfolioCurrency);
+  const [currency, setCurrency] = useState<PortfolioCurrency>({
+    id: "",
+    name: "",
+    symbol: "",
+    amount: 0,
+    price: "",
+  });
   const { currencies } = useContext(CurrencyContext);
   const [isOpenModal, toggleModal] = useToggle();
   const { width = 0 } = useWindowSize();
 
-  const handleSubmit = (id: string, name: string, symbol: string, price: string) => {
+  const handleSubmit = useCallback((id: string, name: string, symbol: string, price: string) => {
     const currency = {
       id: id,
       name: name,
@@ -24,7 +30,7 @@ export const CryptocurrenciesList = () => {
     };
     setCurrency(currency);
     toggleModal();
-  };
+  }, []);
 
   return (
     <>
@@ -72,17 +78,17 @@ export const CryptocurrenciesList = () => {
                       </div>
                     </Link>
                   </td>
-                  <td>${roundToHundredths(priceUsd)}</td>
+                  <td>${roundWithPrecision(priceUsd, 2)}</td>
                   {width > 768 && <td>${roundToBillion(marketCapUsd)}</td>}
                   {width > 1024 && (
                     <>
-                      <td>${roundToHundredths(vwap24Hr)}</td>
+                      <td>${roundWithPrecision(vwap24Hr, 2)}</td>
                       <td>{roundToMillion(supply)}</td>
                     </>
                   )}
 
                   {width > 768 && <td>${roundToMillion(volumeUsd24Hr)}</td>}
-                  <td>{roundToHundredths(changePercent24Hr)}%</td>
+                  <td>{roundWithPrecision(changePercent24Hr, 2)}%</td>
                   <td>
                     <Button
                       type="button"

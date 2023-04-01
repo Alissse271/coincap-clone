@@ -5,7 +5,7 @@ import { useToggle } from "hooks";
 import { useContext, useEffect } from "react";
 import { Link, generatePath } from "react-router-dom";
 import { ROUTE } from "router";
-import { roundToHundredths } from "utils";
+import { roundWithPrecision } from "utils";
 import "./styles.scss";
 
 export const Header = () => {
@@ -31,7 +31,7 @@ export const Header = () => {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.98 }}
             >
-              {name}: ${roundToHundredths(priceUsd)}
+              {name}: ${roundWithPrecision(priceUsd, 2)}
             </motion.li>
           </Link>
         ))}

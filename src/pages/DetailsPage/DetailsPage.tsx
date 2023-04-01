@@ -4,7 +4,7 @@ import { useContext, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
 export const DetailsPage = () => {
-  const { id = "" } = useParams();
+  const { id = "" } = useParams<string>();
   const { fetchCurrencyDetails, currencyDetails, labels, chartData, fetchCurrencyHistory } =
     useContext(CurrencyContext);
 

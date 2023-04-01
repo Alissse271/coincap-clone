@@ -1,6 +1,6 @@
 import "./styles.scss";
 import { portfolioIcon } from "assets";
-import { useContext, useEffect, useState } from "react";
+import { useCallback, useContext, useEffect, useMemo, useState } from "react";
 import { PortfolioContext } from "context";
 import { calcPercentageDifference } from "utils";
 
@@ -10,10 +10,12 @@ interface Props {
 
 export const Portfolio = ({ toggleModal }: Props) => {
   const [oldTotalPortfolioPrice, setOldTotalPortfolioPrice] = useState<string>("0.00");
+
   const { totalPortfolioPrice } = useContext(PortfolioContext);
-  const handleOpenModal = () => {
+
+  const handleOpenModal = useCallback(() => {
     toggleModal();
-  };
+  }, []);
 
   useEffect(() => {
     const portfolioCost = JSON.parse(localStorage.getItem("portfolioCost") || "0.00");
@@ -22,12 +24,15 @@ export const Portfolio = ({ toggleModal }: Props) => {
 
   localStorage.setItem("portfolioCost", JSON.stringify(totalPortfolioPrice));
 
-  const difference: string = String((+totalPortfolioPrice - +oldTotalPortfolioPrice).toFixed(2));
+  const difference: string = useMemo(() => {
+    const result = String((+totalPortfolioPrice - +oldTotalPortfolioPrice).toFixed(2));
+    return result;
+  }, [totalPortfolioPrice, oldTotalPortfolioPrice]);
 
-  const percentageDifference: string = calcPercentageDifference(
-    oldTotalPortfolioPrice,
-    totalPortfolioPrice,
-  );
+  const percentageDifference: string = useMemo(() => {
+    const result = calcPercentageDifference(oldTotalPortfolioPrice, totalPortfolioPrice);
+    return result;
+  }, [oldTotalPortfolioPrice, totalPortfolioPrice]);
 
   return (
     <div className="portfolio">

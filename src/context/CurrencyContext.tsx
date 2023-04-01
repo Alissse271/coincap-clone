@@ -1,7 +1,7 @@
-import axios from "axios";
 import { createContext, useState } from "react";
-import { convertDate, roundToHundredths } from "utils";
+import { convertDate, roundWithPrecision } from "utils";
 import { Currency, CurrencyContextProps, ContextProviderProps, HisoryResponse } from "./types";
+import { coincapAPI } from "services";
 
 export const CurrencyContext = createContext<CurrencyContextProps>({
   currencies: [],
@@ -26,39 +26,81 @@ export const CurrencyContextProvider = ({ children }: ContextProviderProps) => {
   const [labels, setLabels] = useState<string[]>([]);
   const [chartData, setChartData] = useState<string[]>([]);
   const [history, setHistory] = useState<HisoryResponse>({} as HisoryResponse);
+  const [error, setError] = useState<Error | null>(null);
 
   const fetchCurrencies = async (limit: number) => {
-    const response = await axios.get(`https://api.coincap.io/v2/assets?limit=${limit}`);
-    setLimit(limit);
-    setCurrencies(response.data.data);
+    try {
+      const data = await coincapAPI.getCurrencies(limit);
+      console.log(data);
+
+      setLimit(limit);
+      setCurrencies(data);
+      setError(null);
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        console.error(error);
+        setError(error);
+      } else {
+        const genericError = new Error("Unknown error occurred");
+        console.error(genericError);
+        setError(genericError);
+      }
+    }
   };
 
   const fetchBasicCurrencies = async () => {
-    const response = await axios.get(`https://api.coincap.io/v2/assets?limit=3`);
-    setBasicCurrencies(response.data.data);
+    try {
+      const data = await coincapAPI.getBasicCurrencies();
+      setBasicCurrencies(data);
+      setError(null);
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        console.error(error);
+        setError(error);
+      } else {
+        const genericError = new Error("Unknown error occurred");
+        console.error(genericError);
+        setError(genericError);
+      }
+    }
   };
 
   const fetchCurrencyDetails = async (id: string) => {
     try {
-      const response = await axios.get(`https://api.coincap.io/v2/assets/${id}`);
-      const data: Currency = response.data.data;
+      const data = await coincapAPI.getCurrencyDetails(id);
       setCurrencyDetails(data);
-    } catch (error) {
-      console.error(error);
-      return null;
+      setError(null);
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        console.error(error);
+        setError(error);
+      } else {
+        const genericError = new Error("Unknown error occurred");
+        console.error(genericError);
+        setError(genericError);
+      }
     }
   };
 
   const fetchCurrencyHistory = async (id: string) => {
-    const response = await axios.get(`https://api.coincap.io/v2/assets/${id}/history?interval=d1`);
-    const data: HisoryResponse = await response.data;
-    setHistory(data);
+    try {
+      const data = await coincapAPI.getCurrencyHistory(id);
+      const labels = data.data.map(({ time }) => convertDate(time));
+      const chartData = data.data.map(({ priceUsd }) => roundWithPrecision(priceUsd, 2));
 
-    const labels = data.data.map(({ time }) => convertDate(time));
-    const chartData = data.data.map(({ priceUsd }) => roundToHundredths(priceUsd));
-
-    setLabels(labels);
-    setChartData(chartData);
+      setLabels(labels);
+      setChartData(chartData);
+      setError(null);
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        console.error(error);
+        setError(error);
+      } else {
+        const genericError = new Error("Unknown error occurred");
+        console.error(genericError);
+        setError(genericError);
+      }
+    }
   };
 
   const showMoreCurrencies = () => {

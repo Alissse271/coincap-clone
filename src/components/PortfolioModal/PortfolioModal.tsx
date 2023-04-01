@@ -1,7 +1,7 @@
 import { Portal, PortalTarget } from "components";
 import { Button } from "components/Button/Button";
 import { PortfolioContext, PortfolioCurrency } from "context";
-import { useContext, useEffect } from "react";
+import { useCallback, useContext, useEffect, useMemo } from "react";
 import "./styles.scss";
 
 interface Props {
@@ -17,16 +17,20 @@ export const PortfolioModal = ({ isOpenModal, toggleModal }: Props) => {
     setTotalPrice,
     updatePortfolio,
   } = useContext(PortfolioContext);
-  const handleClose = () => {
+
+  const handleClose = useCallback(() => {
     toggleModal();
-  };
+  }, []);
   const handleRemoveCurrency = (id: string) => {
     removeCurrency(id);
   };
 
-  const totalAmount = portfolioCurrencies
-    .reduce((totalAmount, { price }) => totalAmount + +price, 0)
-    .toFixed(2);
+  const totalAmount: string = useMemo(() => {
+    const result = portfolioCurrencies
+      .reduce((totalAmount, { price }) => totalAmount + +price, 0)
+      .toFixed(2);
+    return result;
+  }, [portfolioCurrencies]);
 
   useEffect(() => {
     setTotalPrice(totalAmount);
