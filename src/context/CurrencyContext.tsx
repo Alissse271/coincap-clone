@@ -6,9 +6,24 @@ import { coincapAPI } from "services";
 export const CurrencyContext = createContext<CurrencyContextProps>({
   currencies: [],
   basicCurrencies: [],
-  currencyDetails: {} as Currency,
+  currencyDetails: {
+    id: "",
+    rank: "",
+    symbol: "",
+    name: "",
+    supply: "",
+    maxSupply: "",
+    marketCapUsd: "",
+    volumeUsd24Hr: "",
+    priceUsd: "",
+    changePercent24Hr: "",
+    vwap24Hr: "",
+  },
   limit: 0,
-  history: {} as HisoryResponse,
+  history: {
+    data: [],
+    timestamp: 0,
+  },
   labels: [],
   chartData: [],
   fetchCurrencies: async () => {},
@@ -21,18 +36,28 @@ export const CurrencyContext = createContext<CurrencyContextProps>({
 export const CurrencyContextProvider = ({ children }: ContextProviderProps) => {
   const [currencies, setCurrencies] = useState<Currency[]>([]);
   const [basicCurrencies, setBasicCurrencies] = useState<Currency[]>([]);
-  const [currencyDetails, setCurrencyDetails] = useState<Currency>({} as Currency);
+  const [currencyDetails, setCurrencyDetails] = useState<Currency>({
+    id: "",
+    rank: "",
+    symbol: "",
+    name: "",
+    supply: "",
+    maxSupply: "",
+    marketCapUsd: "",
+    volumeUsd24Hr: "",
+    priceUsd: "",
+    changePercent24Hr: "",
+    vwap24Hr: "",
+  });
   const [limit, setLimit] = useState<number>(20);
   const [labels, setLabels] = useState<string[]>([]);
   const [chartData, setChartData] = useState<string[]>([]);
-  const [history, setHistory] = useState<HisoryResponse>({} as HisoryResponse);
+  const [history, setHistory] = useState<HisoryResponse>({ data: [], timestamp: 0 });
   const [error, setError] = useState<Error | null>(null);
 
   const fetchCurrencies = async (limit: number) => {
     try {
       const data = await coincapAPI.getCurrencies(limit);
-      console.log(data);
-
       setLimit(limit);
       setCurrencies(data);
       setError(null);

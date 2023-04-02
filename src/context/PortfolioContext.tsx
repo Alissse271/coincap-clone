@@ -6,6 +6,7 @@ import {
   PortfolioCurrency,
   PortfolioCurrencyContextProps,
 } from "./types";
+import { coincapAPI } from "services";
 
 const portfolio: PortfolioCurrency[] = JSON.parse(localStorage.getItem("portfolio") || "[]");
 
@@ -21,6 +22,7 @@ export const PortfolioContext = createContext<PortfolioCurrencyContextProps>({
 export const PortfolioContextProvider = ({ children }: ContextProviderProps) => {
   const [portfolioCurrencies, setPortfolioCurrencies] = useState<PortfolioCurrency[]>(portfolio);
   const [totalPortfolioPrice, setTotalPortfolioPrice] = useState<string>("");
+  const [error, setError] = useState<Error | null>(null);
   useEffect(() => {
     localStorage.setItem("portfolio", JSON.stringify(portfolioCurrencies));
     localStorage.setItem("portfolioCost", JSON.stringify(totalPortfolioPrice));
@@ -48,18 +50,29 @@ export const PortfolioContextProvider = ({ children }: ContextProviderProps) => 
     setTotalPortfolioPrice(price);
   };
   const updatePortfolio = async (id: string, amount: number) => {
-    const response = await axios.get(`https://api.coincap.io/v2/assets/${id}`);
-    const newCurrency: Currency = response.data.data;
-    const newPrice = (+newCurrency.priceUsd * amount).toFixed(2);
+    try {
+      const response = await coincapAPI.getCurrencyDetails(id);
+      const newCurrency: Currency = response;
+      const newPrice = (+newCurrency.priceUsd * amount).toFixed(2);
 
-    const updatedPortfolio = portfolioCurrencies.map((currency) => {
-      if (currency.id === id) {
-        return { ...currency, price: newPrice };
+      const updatedPortfolio = portfolioCurrencies.map((currency) => {
+        if (currency.id === id) {
+          return { ...currency, price: newPrice };
+        } else {
+          return currency;
+        }
+      });
+      setPortfolioCurrencies(updatedPortfolio);
+    } catch (error) {
+      if (error instanceof Error) {
+        console.error(error);
+        setError(error);
       } else {
-        return currency;
+        const genericError = new Error("Unknown error occurred");
+        console.error(genericError);
+        setError(genericError);
       }
-    });
-    setPortfolioCurrencies(updatedPortfolio);
+    }
   };
 
   return (
