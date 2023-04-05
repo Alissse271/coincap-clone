@@ -8,7 +8,11 @@ import { ROUTE } from "router";
 import { roundToBillion, roundWithPrecision, roundToMillion } from "utils";
 import "./styles.scss";
 
-export const CryptocurrenciesList = () => {
+interface Props {
+  onHoverVariant?: "small" | "medium" | "large";
+}
+
+export const CryptocurrenciesList = ({ onHoverVariant }: Props) => {
   const [currency, setCurrency] = useState<PortfolioCurrency>({
     id: "",
     name: "",
@@ -16,6 +20,7 @@ export const CryptocurrenciesList = () => {
     amount: 0,
     price: "",
   });
+
   const { currencies } = useContext(CurrencyContext);
   const [isOpenModal, toggleModal] = useToggle();
   const { width = 0 } = useWindowSize();
@@ -31,6 +36,13 @@ export const CryptocurrenciesList = () => {
     setCurrency(currency);
     toggleModal();
   }, []);
+
+  const variants = {
+    rest: { scale: 1 },
+    small: { scale: 1.005 },
+    medium: { scale: 1.01 },
+    large: { scale: 1.02 },
+  };
 
   return (
     <>
@@ -68,7 +80,7 @@ export const CryptocurrenciesList = () => {
                 changePercent24Hr,
                 vwap24Hr,
               }: Currency) => (
-                <motion.tr key={id} whileHover={{ scale: 1.01 }}>
+                <motion.tr key={id} variants={variants} initial="rest" whileHover={onHoverVariant}>
                   {width > 768 && <td>{rank}</td>}
                   <td>
                     <Link to={generatePath(ROUTE.HOME + ROUTE.DETAILS, { id: id })}>
