@@ -54,7 +54,7 @@ export const PortfolioModal = ({ isOpenModal, toggleModal }: Props) => {
         <div className="portfolio">
           <div className="portfolio-header">
             <h2 className="portfolio-title">Portfolio</h2>
-            <Button type="button" label="x" onClick={handleClose} />
+            <Button mode="cancel" type="button" label="x" onClick={handleClose} />
           </div>
 
           {portfolioCurrencies.length ? (
@@ -76,7 +76,12 @@ export const PortfolioModal = ({ isOpenModal, toggleModal }: Props) => {
                       <p>Price</p>
                       <p>${price}</p>
                     </div>
-                    <Button type="button" label="-" onClick={() => handleRemoveCurrency(id)} />
+                    <Button
+                      mode="remove"
+                      type="button"
+                      label="-"
+                      onClick={() => handleRemoveCurrency(id)}
+                    />
                   </li>
                 ),
               )}

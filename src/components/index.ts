@@ -7,7 +7,7 @@ import { Header } from "./Header/Header";
 import { Portal, PortalTarget } from "./Portal/Portal";
 import { Portfolio } from "./Portfolio/Portfolio";
 import { PortfolioModal } from "./PortfolioModal/PortfolioModal";
-import { PrimaryButton } from "./PrimaryButton/PrimaryButton";
+import { DefaultButton } from "./DefaultButton/DefaultButton";
 
 export {
   CryptocurrenciesList,
@@ -16,7 +16,7 @@ export {
   Button,
   PortfolioModal,
   AddToPortfolioModal,
-  PrimaryButton,
+  DefaultButton,
   CurrencyDetails,
   Chart,
   Portal,

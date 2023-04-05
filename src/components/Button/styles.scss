@@ -6,9 +6,23 @@
 
   color: #fff;
 
+  border: none;
   border-radius: 50%;
 
   &:hover {
     box-shadow: 0 0 0 3px #eee;
+  }
+  &--add {
+    background-color: #28dd17;
+  }
+  &--remove {
+    background-color: #fc2626;
+  }
+  &--cancel {
+    background-color: #26aefc;
+  }
+  &:disabled {
+    background-color: #b1b1b1;
+    pointer-events: none;
   }
 }

@@ -61,7 +61,7 @@ export const AddToPortfolioModal = ({ isOpenModal, toggleModal, currency }: Prop
         <form onSubmit={handleSubmit(onSubmit)} className="modal">
           <div className="modal-header">
             <h2 className="modal-title">Add to portfolio</h2>
-            <Button type="button" label="x" onClick={handleClose} />
+            <Button type="button" label="x" onClick={handleClose} mode="cancel" />
           </div>
           <div className="modal-main">
             <input

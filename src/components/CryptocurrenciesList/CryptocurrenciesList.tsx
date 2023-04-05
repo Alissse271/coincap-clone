@@ -91,6 +91,7 @@ export const CryptocurrenciesList = () => {
                   <td>{roundWithPrecision(changePercent24Hr, 2)}%</td>
                   <td>
                     <Button
+                      mode="add"
                       type="button"
                       label="+"
                       onClick={() => handleSubmit(id, name, symbol, priceUsd)}

@@ -1,5 +1,5 @@
 import { LeftArrow } from "assets";
-import { AddToPortfolioModal, Chart, PrimaryButton } from "components";
+import { AddToPortfolioModal, Chart, DefaultButton } from "components";
 import { Currency, PortfolioCurrency } from "context";
 import { motion } from "framer-motion";
 import { useToggle } from "hooks";
@@ -77,10 +77,11 @@ export const CurrencyDetails = ({ currency, labels, chartData }: Props) => {
           <p className="details-container__item">
             Supply: {roundToMillion(supply)} {symbol}
           </p>
-          <PrimaryButton
+          <DefaultButton
             type="button"
             onClick={() => handleSubmit(id, name, symbol, priceUsd)}
             label="Add to Portfolio"
+            size="large"
           />
         </div>
         <AddToPortfolioModal

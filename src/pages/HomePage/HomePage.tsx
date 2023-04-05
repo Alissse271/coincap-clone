@@ -1,4 +1,4 @@
-import { CryptocurrenciesList, PrimaryButton } from "components";
+import { CryptocurrenciesList, DefaultButton } from "components";
 import { CurrencyContext } from "context";
 import { useContext, useEffect } from "react";
 import "./styles.scss";
@@ -15,7 +15,7 @@ export const HomePage = () => {
   return (
     <div className="container">
       <CryptocurrenciesList />
-      <PrimaryButton type="button" label="View more" onClick={handleShowMore} />
+      <DefaultButton disabled primary type="button" label="View more" onClick={handleShowMore} />
     </div>
   );
 };
