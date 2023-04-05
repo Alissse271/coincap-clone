@@ -8,6 +8,7 @@ import { Portal, PortalTarget } from "./Portal/Portal";
 import { Portfolio } from "./Portfolio/Portfolio";
 import { PortfolioModal } from "./PortfolioModal/PortfolioModal";
 import { DefaultButton } from "./DefaultButton/DefaultButton";
+import { TableHead } from "./TableHead/TableHead";
 
 export {
   CryptocurrenciesList,
@@ -21,4 +22,5 @@ export {
   Chart,
   Portal,
   PortalTarget,
+  TableHead,
 };

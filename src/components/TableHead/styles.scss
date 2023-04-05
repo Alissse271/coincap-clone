@@ -1,0 +1,32 @@
+.table__head {
+  font-family: "Montserrat", sans-serif;
+  tr {
+    th {
+      padding: 0 10px;
+      text-align: left;
+    }
+  }
+  &--small {
+    font-size: 14px;
+  }
+  &--medium {
+    font-size: 16px;
+    @media (max-width: 568px) {
+      font-size: 14px;
+    }
+  }
+  &--large {
+    font-size: 18px;
+    @media (max-width: 568px) {
+      font-size: 16px;
+    }
+  }
+  &--primary {
+    color: #000;
+    background-color: #fff;
+  }
+  &--secondary {
+    color: #686868;
+    background-color: #fff;
+  }
+}

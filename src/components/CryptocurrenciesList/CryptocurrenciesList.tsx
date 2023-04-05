@@ -1,4 +1,4 @@
-import { AddToPortfolioModal, Button } from "components";
+import { AddToPortfolioModal, Button, TableHead } from "components";
 import { Currency, CurrencyContext, PortfolioCurrency } from "context";
 import { motion } from "framer-motion";
 import { useToggle, useWindowSize } from "hooks";
@@ -48,24 +48,7 @@ export const CryptocurrenciesList = ({ onHoverVariant }: Props) => {
     <>
       <main className="cryptocurrencies">
         <table className="cryptocurrencies-table">
-          <thead className="cryptocurrencies-table__head">
-            <tr>
-              {width > 768 && <th>Rank</th>}
-              <th>Name</th>
-              <th>Price</th>
-              {width > 768 && <th>Market Cap</th>}
-              {width > 1024 && (
-                <>
-                  <th>VWAP (24Hr)</th>
-                  <th>Supply</th>
-                </>
-              )}
-              {width > 768 && <th>Volume (24Hr)</th>}
-              <th>Change (24Hr)</th>
-              <th>Add</th>
-            </tr>
-          </thead>
-
+          <TableHead primary size="medium" />
           <tbody className="cryptocurrencies-table__body">
             {currencies?.map(
               ({
