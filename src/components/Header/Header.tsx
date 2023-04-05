@@ -8,9 +8,20 @@ import { ROUTE } from "router";
 import { roundWithPrecision } from "utils";
 import "./styles.scss";
 
-export const Header = () => {
+interface Props {
+  onHoverVariant?: "small" | "medium" | "large";
+}
+
+export const Header = ({ onHoverVariant }: Props) => {
   const [isOpenModal, toggleModal] = useToggle();
   const { fetchBasicCurrencies, basicCurrencies } = useContext(CurrencyContext);
+
+  const variants = {
+    rest: { scale: 1 },
+    small: { scale: 1.005 },
+    medium: { scale: 1.01 },
+    large: { scale: 1.02 },
+  };
 
   useEffect(() => {
     fetchBasicCurrencies();
@@ -28,7 +39,9 @@ export const Header = () => {
             <motion.li
               key={id}
               className="header-currencies__item"
-              whileHover={{ scale: 1.05 }}
+              variants={variants}
+              initial="rest"
+              whileHover={onHoverVariant}
               whileTap={{ scale: 0.98 }}
             >
               {name}: ${roundWithPrecision(priceUsd, 2)}

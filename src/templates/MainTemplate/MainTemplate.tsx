@@ -4,7 +4,7 @@ import { Outlet } from "react-router-dom";
 export const MainTemplate = () => {
   return (
     <>
-      <Header />
+      <Header onHoverVariant="medium" />
       <Outlet />
     </>
   );
