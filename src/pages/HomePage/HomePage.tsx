@@ -15,7 +15,7 @@ export const HomePage = () => {
   return (
     <div className="container">
       <CryptocurrenciesList onHoverVariant="medium" />
-      <DefaultButton disabled primary type="button" label="View more" onClick={handleShowMore} />
+      <DefaultButton primary type="button" label="View more" onClick={handleShowMore} />
     </div>
   );
 };
