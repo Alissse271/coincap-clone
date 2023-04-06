@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 
-describe("Load the page", () => {
+describe("Test the app", () => {
   const baseUrl = "REACT_APP_SERVICES_COINCAP_API_BASE_URL";
   let originalCount: number;
 
@@ -20,6 +20,10 @@ describe("Load the page", () => {
     cy.visit("/");
     cy.get(".cryptocurrencies").should("exist");
     cy.get(".cryptocurrencies tbody tr").should("exist");
+    cy.get(".cryptocurrencies").screenshot("cryptocurrencies", {
+      capture: "viewport",
+      overwrite: true,
+    });
   });
 
   it("Checks pagination", () => {
@@ -45,13 +49,24 @@ describe("Load the page", () => {
       .find(".button--add")
       .click()
       .then(() => {
-        cy.get("#addToPortfolio").should("exist").find(".button--cancel").click();
+        cy.get("#addToPortfolio")
+          .should("exist")
+          .find(".modal-background")
+          .screenshot("add-to-portfolio-modal", {
+            capture: "viewport",
+            overwrite: true,
+          });
+        cy.get("#addToPortfolio").find(".button--cancel").click();
         cy.get("#addToPortfolio").should("not.be.visible");
       });
     cy.get(".portfolio-button")
       .click()
       .then(() => {
-        cy.get("#portfolio").should("exist").find(".button--cancel").click();
+        cy.get("#portfolio")
+          .should("exist")
+          .find(".portfolio-background")
+          .screenshot("portfolio-modal", { capture: "viewport", overwrite: true });
+        cy.get("#portfolio").find(".button--cancel").click();
         cy.get("#portfolio").should("not.be.visible");
       });
   });
@@ -109,6 +124,15 @@ describe("Load the page", () => {
           });
         cy.get(".chart-wrapper").should("exist").find("canvas").should("exist");
       });
+
+    cy.get(".details-wrapper").should("be.visible");
+    cy.wait(2000).then(() => {
+      cy.screenshot("details", {
+        capture: "viewport",
+        overwrite: true,
+      });
+    });
+
     cy.get(".details-wrapper").find("a").click();
     cy.url().should("eq", "http://localhost:3000/coincap-clone");
   });

@@ -1,3 +1,6 @@
 {
-  "extends": ["plugin:@cypress/dev/general"]
+  "extends": ["plugin:@cypress/dev/general"],
+  "compilerOptions": {
+    "types": ["cypress", "cypress-visual-regression"]
+  }
 }
