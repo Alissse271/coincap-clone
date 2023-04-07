@@ -1,4 +1,5 @@
-import "./styles.scss";
+// import "./styles.scss";
+import React from "react";
 import { ButtonHTMLAttributes } from "react";
 
 interface ButtonProps {
@@ -8,9 +9,18 @@ interface ButtonProps {
   mode: "add" | "cancel" | "remove";
   disabled?: boolean;
   dataCy?: string;
+  dataTestId?: string;
 }
 
-export const Button = ({ type, label, onClick, mode, disabled = false, dataCy }: ButtonProps) => {
+export const Button = ({
+  type,
+  label,
+  onClick,
+  mode,
+  disabled = false,
+  dataCy,
+  dataTestId,
+}: ButtonProps) => {
   return (
     <button
       type={type}
@@ -18,6 +28,7 @@ export const Button = ({ type, label, onClick, mode, disabled = false, dataCy }:
       className={["button", `button--${mode}`].join(" ")}
       disabled={disabled}
       data-cy={dataCy}
+      data-testid={dataTestId}
     >
       {label}
     </button>

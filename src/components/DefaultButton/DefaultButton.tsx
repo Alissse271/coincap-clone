@@ -1,5 +1,6 @@
+import React from "react";
 import { ButtonHTMLAttributes } from "react";
-import "./styles.scss";
+// import "./styles.scss";
 
 interface ButtonProps {
   type?: ButtonHTMLAttributes<HTMLButtonElement>["type"];
@@ -9,6 +10,7 @@ interface ButtonProps {
   size?: "small" | "medium" | "large";
   disabled?: boolean;
   dataCy?: string;
+  dataTestId?: string;
 }
 
 export const DefaultButton = ({
@@ -19,6 +21,7 @@ export const DefaultButton = ({
   size = "medium",
   disabled = false,
   dataCy,
+  dataTestId,
 }: ButtonProps) => {
   const mode = primary ? "default-button--primary" : "default-button--secondary";
   return (
@@ -28,6 +31,7 @@ export const DefaultButton = ({
       className={["default-button", `default-button--${size}`, mode].join(" ")}
       disabled={disabled}
       data-cy={dataCy}
+      data-testid={dataTestId}
     >
       {label}
     </button>
