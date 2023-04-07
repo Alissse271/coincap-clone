@@ -46,7 +46,7 @@ export const CryptocurrenciesList = ({ onHoverVariant }: Props) => {
 
   return (
     <>
-      <main className="cryptocurrencies">
+      <main className="cryptocurrencies" data-cy="cryptocurrencies">
         <table className="cryptocurrencies-table">
           <TableHead primary size="medium" />
           <tbody className="cryptocurrencies-table__body">
@@ -63,10 +63,19 @@ export const CryptocurrenciesList = ({ onHoverVariant }: Props) => {
                 changePercent24Hr,
                 vwap24Hr,
               }: Currency) => (
-                <motion.tr key={id} variants={variants} initial="rest" whileHover={onHoverVariant}>
+                <motion.tr
+                  key={id}
+                  variants={variants}
+                  initial="rest"
+                  whileHover={onHoverVariant}
+                  data-cy="cryptocurrencies-row"
+                >
                   {width > 768 && <td>{rank}</td>}
                   <td>
-                    <Link to={generatePath(ROUTE.HOME + ROUTE.DETAILS, { id: id })}>
+                    <Link
+                      to={generatePath(ROUTE.HOME + ROUTE.DETAILS, { id: id })}
+                      data-cy="currency-link"
+                    >
                       <div className="cryptocurrency-name">
                         <p>{name}</p>
                         <p>{symbol}</p>
@@ -90,6 +99,7 @@ export const CryptocurrenciesList = ({ onHoverVariant }: Props) => {
                       type="button"
                       label="+"
                       onClick={() => handleSubmit(id, name, symbol, priceUsd)}
+                      dataCy="button-add"
                     />
                   </td>
                 </motion.tr>

@@ -43,5 +43,5 @@ export const Chart = ({ label, chartData, name }: Chart) => {
       },
     ],
   };
-  return <Line options={options} data={data} />;
+  return <Line options={options} data={data} data-cy="canvas" />;
 };

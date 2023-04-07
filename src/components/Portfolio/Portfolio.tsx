@@ -35,20 +35,29 @@ export const Portfolio = ({ toggleModal }: Props) => {
   }, [oldTotalPortfolioPrice, totalPortfolioPrice]);
 
   return (
-    <div className="portfolio">
-      <div className="portfolio-info">
-        <p className="portfolio-info__item">Portfolio:</p>
-        <p className="portfolio-info__item">{totalPortfolioPrice} USD</p>
-        <p className="portfolio-info__item">
+    <div className="portfolio" data-cy="portfolio">
+      <div className="portfolio-info" data-cy="portfolio-info">
+        <p className="portfolio-info__item" data-cy="portfolio-info__item">
+          Portfolio:
+        </p>
+        <p className="portfolio-info__item" data-cy="portfolio-info__item">
+          {totalPortfolioPrice} USD
+        </p>
+        <p className="portfolio-info__item" data-cy="portfolio-info__item">
           {+difference <= 0 ? `${difference}` : `+${difference}`}$
         </p>
-        <p className="portfolio-info__item">
+        <p className="portfolio-info__item" data-cy="portfolio-info__item">
           ({+percentageDifference ? `${percentageDifference}` : `0.00`}
           %)
         </p>
       </div>
 
-      <button type="button" className="portfolio-button" onClick={handleOpenModal}>
+      <button
+        type="button"
+        className="portfolio-button"
+        onClick={handleOpenModal}
+        data-cy="portfolio-button"
+      >
         <img src={portfolioIcon} alt="Portfolio" className="portfolio-button__image" />
       </button>
     </div>

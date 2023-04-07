@@ -4,157 +4,162 @@ describe("Test the app", () => {
   const baseUrl = "REACT_APP_SERVICES_COINCAP_API_BASE_URL";
   let originalCount: number;
 
-  beforeEach(() => {
-    cy.request("GET", `${Cypress.env(baseUrl)}?limit=20`).then((response) => {
+  before(() => {
+    cy.request(`${Cypress.env(baseUrl)}?limit=20`).then((response) => {
       expect(response.status).to.eq(200);
       expect(response.body).to.have.property("data");
       originalCount = response.body.data.length;
     });
-    cy.request("GET", `${Cypress.env(baseUrl)}?limit=3`).then((response) => {
+    cy.request(`${Cypress.env(baseUrl)}?limit=3`).then((response) => {
       expect(response.status).to.eq(200);
       expect(response.body).to.have.property("data");
     });
+    cy.visit("/");
+  });
+
+  beforeEach(() => {
+    cy.visit("/");
   });
 
   it("Displays data correctly", () => {
-    cy.visit("/");
-    cy.get(".cryptocurrencies").should("exist");
-    cy.get(".cryptocurrencies tbody tr").should("exist");
-    cy.get(".cryptocurrencies").screenshot("cryptocurrencies", {
+    cy.get('[data-cy="cryptocurrencies"]').should("exist");
+    cy.get('[data-cy="cryptocurrencies-row"]').should("exist");
+    cy.get('[data-cy="cryptocurrencies"]').screenshot("cryptocurrencies", {
       capture: "viewport",
       overwrite: true,
     });
   });
 
   it("Checks pagination", () => {
-    cy.visit("/");
-    cy.get(".container").should("exist").find(".default-button").click();
-    cy.get(".cryptocurrencies tbody tr").should("have.length.greaterThan", originalCount);
+    cy.get('[data-cy="container"]').should("exist").find('[data-cy="view-more-button"]').click();
+    cy.get('[data-cy="cryptocurrencies-row"]').should("have.length.greaterThan", originalCount);
   });
 
   it("Checks for a list item to have an add button", () => {
-    cy.visit("/");
-    cy.get(".cryptocurrencies")
-      .find("tbody")
-      .find("tr")
+    cy.get('[data-cy="cryptocurrencies"]')
+      .find('[data-cy="cryptocurrencies-row"]')
       .should("have.length.greaterThan", 0)
-      .find(".button--add")
+      .find('[data-cy="button-add"]')
       .should("exist");
   });
 
   it("Opens and close modals", () => {
-    cy.visit("/");
-    cy.get("tbody tr:first-child")
+    cy.get('[data-cy="cryptocurrencies-row"]:first-child')
       .should("exist")
-      .find(".button--add")
+      .find('[data-cy="button-add"]')
       .click()
       .then(() => {
-        cy.get("#addToPortfolio")
+        cy.get('[data-cy="add-to-portfolio-modal"]')
           .should("exist")
-          .find(".modal-background")
+          .find('[data-cy="modal-background"]')
           .screenshot("add-to-portfolio-modal", {
             capture: "viewport",
             overwrite: true,
           });
-        cy.get("#addToPortfolio").find(".button--cancel").click();
-        cy.get("#addToPortfolio").should("not.be.visible");
+        cy.get('[data-cy="add-to-portfolio-modal"]').find('[data-cy="button-cancel"]').click();
+        cy.get('[data-cy="add-to-portfolio-modal"]').should("not.be.visible");
       });
-    cy.get(".portfolio-button")
+    cy.get('[data-cy="portfolio-button"]')
       .click()
       .then(() => {
-        cy.get("#portfolio")
+        cy.get('[data-cy="portfolio-modal"]')
           .should("exist")
-          .find(".portfolio-background")
+          .find('[data-cy="portfolio-background"]')
           .screenshot("portfolio-modal", { capture: "viewport", overwrite: true });
-        cy.get("#portfolio").find(".button--cancel").click();
-        cy.get("#portfolio").should("not.be.visible");
+        cy.get('[data-cy="portfolio-modal"]').find('[data-cy="button-cancel"]').click();
+        cy.get('[data-cy="portfolio-modal"]').should("not.be.visible");
       });
   });
 
   it("Opens modal to add currency", () => {
-    cy.visit("/");
-    cy.get("tbody tr:first-child")
+    cy.get('[data-cy="cryptocurrencies-row"]:first-child')
       .should("exist")
-      .find(".button--add")
+      .find('[data-cy="button-add"]')
       .click()
       .then(() => {
-        cy.get("#addToPortfolio").should("exist");
+        cy.get('[data-cy="add-to-portfolio-modal"]').should("exist");
       });
-    cy.get(".modal-main__input").type("1").should("have.value", "1");
-    cy.get(".modal-footer__button").click();
-    cy.get("#addToPortfolio").should("not.be.visible");
-    cy.get(".portfolio-button")
+    cy.get('[data-cy="input"]').type("1").should("have.value", "1");
+    cy.get('[data-cy="submit"]').click();
+    cy.get('[data-cy="add-to-portfolio-modal"]').should("not.be.visible");
+    cy.get('[data-cy="portfolio-button"]')
       .click()
       .then(() => {
-        cy.get("#portfolio")
+        cy.get('[data-cy="portfolio-modal"]')
           .should("exist")
-          .find(".portfolio-list")
-          .find(".portfolio-list__item")
-          .find(".cryptocurrency-name p")
+          .find('[data-cy="portfolio-list"]')
+          .find('[data-cy="portfolio-list-item"]')
+          .find('[data-cy="currency-name"]')
           .contains("Bitcoin")
           .should("exist");
-        cy.get(".portfolio-list__item").find(".amount-wrapper p").contains("1").should("exist");
-        cy.get(".portfolio-list__item").find(".button--remove").click();
-        cy.get(".portfolio-list").should("not.exist");
-        cy.get(".empty-block-text").should("exist");
-        cy.get("#portfolio").find(".button--cancel").click();
-        cy.get("#portfolio").should("not.be.visible");
+        cy.get('[data-cy="portfolio-list-item"]')
+          .find('[data-cy="currency-amount"]')
+          .contains("1")
+          .should("exist");
+        cy.get('[data-cy="portfolio-list-item"]').find('[data-cy="button-remove"]').click();
+        cy.get('[data-cy="portfolio-list"]').should("not.exist");
+        cy.get('[data-cy="empty-block-text"]').should("exist");
+        cy.get('[data-cy="portfolio-modal"]').find('[data-cy="button-cancel"]').click();
+        cy.get('[data-cy="portfolio-modal"]').should("not.be.visible");
       });
   });
 
   it("Opens details page and returns to home page", () => {
-    cy.visit("/");
-    cy.get(".cryptocurrencies")
-      .find("tbody tr:first-child")
+    cy.get('[data-cy="cryptocurrencies"]')
+      .find('[data-cy="cryptocurrencies-row"]:first-child')
       .should("have.length.greaterThan", 0)
-      .find("a")
+      .find('[data-cy="currency-link"]')
       .click();
     cy.url()
       .should("include", "/details")
       .then(() => {
-        cy.get(".details-wrapper").should("exist");
-        cy.get(".details-container")
+        cy.get('[data-cy="details-wrapper"]').should("exist");
+        cy.get('[data-cy="details-container"]')
           .should("exist")
-          .find(".default-button")
+          .find('[data-cy="add-to-portfolio-button"]')
           .should("exist")
           .click()
           .then(() => {
-            cy.get("#addToPortfolio").should("exist").find(".button--cancel").click();
-            cy.get("#addToPortfolio").should("not.be.visible");
+            cy.get('[data-cy="add-to-portfolio-modal"]')
+              .should("exist")
+              .find('[data-cy="button-cancel"]')
+              .click();
+            cy.get('[data-cy="add-to-portfolio-modal"]').should("not.be.visible");
           });
-        cy.get(".chart-wrapper").should("exist").find("canvas").should("exist");
+        cy.get('[data-cy="chart-wrapper"]')
+          .should("exist")
+          .find('[data-cy="canvas"]')
+          .should("exist");
       });
 
-    cy.get(".details-wrapper").should("be.visible");
-    cy.wait(2000).then(() => {
+    cy.get('[data-cy="details-wrapper"]').should("be.visible");
+    cy.wait(1000).then(() => {
       cy.screenshot("details", {
         capture: "viewport",
         overwrite: true,
       });
     });
 
-    cy.get(".details-wrapper").find("a").click();
+    cy.get('[data-cy="details-wrapper"]').find('[data-cy="link-home"]').click();
     cy.url().should("eq", "http://localhost:3000/coincap-clone");
   });
 
   it("Checks top currencies in the header", () => {
-    cy.visit("/");
-    cy.get(".header")
+    cy.get('[data-cy="header"]')
       .should("exist")
-      .find(".header-currencies")
+      .find('[data-cy="header-currencies"]')
       .should("exist")
-      .find(".header-currencies__item")
+      .find('[data-cy="header-currencies__item"]')
       .should("have.length", 3);
   });
   it("Checks portfolio in the header", () => {
-    cy.visit("/");
-    cy.get(".header")
+    cy.get('[data-cy="header"]')
       .should("exist")
-      .find(".portfolio")
+      .find('[data-cy="portfolio"]')
       .should("exist")
-      .find(".portfolio-info")
+      .find('[data-cy="portfolio-info"]')
       .should("exist")
-      .find("p")
+      .find('[data-cy="portfolio-info__item"]')
       .should("have.length", 4);
   });
 });

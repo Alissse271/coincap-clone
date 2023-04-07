@@ -27,8 +27,8 @@ export const Header = ({ onHoverVariant }: Props) => {
     fetchBasicCurrencies();
   }, []);
   return (
-    <header className="header">
-      <ul className="header-currencies">
+    <header className="header" data-cy="header">
+      <ul className="header-currencies" data-cy="header-currencies">
         {basicCurrencies.map(({ id, name, priceUsd }: Currency) => (
           <Link
             key={id}
@@ -39,6 +39,7 @@ export const Header = ({ onHoverVariant }: Props) => {
             <motion.li
               key={id}
               className="header-currencies__item"
+              data-cy="header-currencies__item"
               variants={variants}
               initial="rest"
               whileHover={onHoverVariant}

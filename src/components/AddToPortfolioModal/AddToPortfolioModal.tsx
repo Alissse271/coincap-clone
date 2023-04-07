@@ -57,11 +57,17 @@ export const AddToPortfolioModal = ({ isOpenModal, toggleModal, currency }: Prop
 
   return (
     <Portal target={PortalTarget.ADD_TO_PORTFOLIO}>
-      <div className={`modal-background ${isOpenModal ? "" : "none"}`}>
+      <div className={`modal-background ${isOpenModal ? "" : "none"}`} data-cy="modal-background">
         <form onSubmit={handleSubmit(onSubmit)} className="modal">
           <div className="modal-header">
             <h2 className="modal-title">Add to portfolio</h2>
-            <Button type="button" label="x" onClick={handleClose} mode="cancel" />
+            <Button
+              type="button"
+              label="x"
+              onClick={handleClose}
+              mode="cancel"
+              dataCy="button-cancel"
+            />
           </div>
           <div className="modal-main">
             <input
@@ -80,11 +86,12 @@ export const AddToPortfolioModal = ({ isOpenModal, toggleModal, currency }: Prop
               type="number"
               placeholder="Enter amount"
               step="0.1"
+              data-cy="input"
             />
             {errors.value && <p className="input-error">{errors.value.message}</p>}
           </div>
           <div className="modal-footer">
-            <button type="submit" className="modal-footer__button">
+            <button type="submit" className="modal-footer__button" data-cy="submit">
               Submit
             </button>
           </div>

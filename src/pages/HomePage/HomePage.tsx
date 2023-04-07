@@ -13,9 +13,15 @@ export const HomePage = () => {
     fetchCurrencies(limit);
   }, [limit]);
   return (
-    <div className="container">
+    <div className="container" data-cy="container">
       <CryptocurrenciesList onHoverVariant="medium" />
-      <DefaultButton primary type="button" label="View more" onClick={handleShowMore} />
+      <DefaultButton
+        primary
+        type="button"
+        label="View more"
+        onClick={handleShowMore}
+        dataCy="view-more-button"
+      />
     </div>
   );
 };

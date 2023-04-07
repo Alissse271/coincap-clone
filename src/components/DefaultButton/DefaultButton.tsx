@@ -8,6 +8,7 @@ interface ButtonProps {
   primary?: boolean;
   size?: "small" | "medium" | "large";
   disabled?: boolean;
+  dataCy?: string;
 }
 
 export const DefaultButton = ({
@@ -17,6 +18,7 @@ export const DefaultButton = ({
   primary = false,
   size = "medium",
   disabled = false,
+  dataCy,
 }: ButtonProps) => {
   const mode = primary ? "default-button--primary" : "default-button--secondary";
   return (
@@ -25,6 +27,7 @@ export const DefaultButton = ({
       onClick={onClick}
       className={["default-button", `default-button--${size}`, mode].join(" ")}
       disabled={disabled}
+      data-cy={dataCy}
     >
       {label}
     </button>

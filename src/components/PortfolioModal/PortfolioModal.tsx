@@ -50,27 +50,36 @@ export const PortfolioModal = ({ isOpenModal, toggleModal }: Props) => {
 
   return (
     <Portal target={PortalTarget.PORTFOLIO}>
-      <div className={`portfolio-background ${isOpenModal ? "" : "none"}`}>
+      <div
+        className={`portfolio-background ${isOpenModal ? "" : "none"}`}
+        data-cy="portfolio-background"
+      >
         <div className="portfolio">
           <div className="portfolio-header">
             <h2 className="portfolio-title">Portfolio</h2>
-            <Button mode="cancel" type="button" label="x" onClick={handleClose} />
+            <Button
+              mode="cancel"
+              type="button"
+              label="x"
+              onClick={handleClose}
+              dataCy="button-cancel"
+            />
           </div>
 
           {portfolioCurrencies.length ? (
-            <ul className="portfolio-list">
+            <ul className="portfolio-list" data-cy="portfolio-list">
               {portfolioCurrencies?.map(
                 ({ id, name, symbol, amount, price }: PortfolioCurrency) => (
-                  <li key={name} className="portfolio-list__item">
+                  <li key={name} className="portfolio-list__item" data-cy="portfolio-list-item">
                     <div className="cryptocurrency-wrapper">
                       <div className="cryptocurrency-name">
-                        <p>{name}</p>
+                        <p data-cy="currency-name">{name}</p>
                         <p>{symbol}</p>
                       </div>
                     </div>
                     <div className="amount-wrapper">
                       <p>Amount</p>
-                      <p>{amount}</p>
+                      <p data-cy="currency-amount">{amount}</p>
                     </div>
                     <div className="price-wrapper">
                       <p>Price</p>
@@ -81,13 +90,16 @@ export const PortfolioModal = ({ isOpenModal, toggleModal }: Props) => {
                       type="button"
                       label="-"
                       onClick={() => handleRemoveCurrency(id)}
+                      dataCy="button-remove"
                     />
                   </li>
                 ),
               )}
             </ul>
           ) : (
-            <p className="empty-block-text">Your portfolio is empty!</p>
+            <p className="empty-block-text" data-cy="empty-block-text">
+              Your portfolio is empty!
+            </p>
           )}
 
           <div className="portfolio-footer">

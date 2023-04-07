@@ -51,12 +51,13 @@ export const CurrencyDetails = ({ currency, labels, chartData }: Props) => {
   }, []);
 
   return (
-    <div className="details-wrapper">
-      <Link to={ROUTE.HOME}>
+    <div className="details-wrapper" data-cy="details-wrapper">
+      <Link to={ROUTE.HOME} data-cy="link-home">
         <LeftArrow />
       </Link>
       <motion.div
         className="details-container"
+        data-cy="details-container"
         initial={{ opacity: 0, scale: 1 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ delay: 0.3, duration: 1.2 }}
@@ -82,6 +83,7 @@ export const CurrencyDetails = ({ currency, labels, chartData }: Props) => {
             onClick={() => handleSubmit(id, name, symbol, priceUsd)}
             label="Add to Portfolio"
             size="large"
+            dataCy="add-to-portfolio-button"
           />
         </div>
         <AddToPortfolioModal
@@ -92,6 +94,7 @@ export const CurrencyDetails = ({ currency, labels, chartData }: Props) => {
       </motion.div>
       <motion.div
         className="chart-wrapper"
+        data-cy="chart-wrapper"
         initial={{ opacity: 0, scale: 0 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ delay: 0.2, duration: 1.0 }}
