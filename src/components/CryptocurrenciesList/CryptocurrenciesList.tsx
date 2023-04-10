@@ -10,9 +10,10 @@ import "./styles.scss";
 
 interface Props {
   onHoverVariant?: "small" | "medium" | "large";
+  currencies: Currency[];
 }
 
-export const CryptocurrenciesList = ({ onHoverVariant }: Props) => {
+export const CryptocurrenciesList = ({ onHoverVariant, currencies }: Props) => {
   const [currency, setCurrency] = useState<PortfolioCurrency>({
     id: "",
     name: "",
@@ -21,7 +22,7 @@ export const CryptocurrenciesList = ({ onHoverVariant }: Props) => {
     price: "",
   });
 
-  const { currencies } = useContext(CurrencyContext);
+  // const { currencies } = useContext(CurrencyContext);
   const [isOpenModal, toggleModal] = useToggle();
   const { width = 0 } = useWindowSize();
 
@@ -50,7 +51,7 @@ export const CryptocurrenciesList = ({ onHoverVariant }: Props) => {
         <table className="cryptocurrencies-table">
           <TableHead primary size="medium" />
           <tbody className="cryptocurrencies-table__body">
-            {currencies?.map(
+            {currencies.map(
               ({
                 id,
                 rank,
