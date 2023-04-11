@@ -9,18 +9,9 @@ interface ButtonProps {
   mode: "add" | "cancel" | "remove";
   disabled?: boolean;
   dataCy?: string;
-  dataTestId?: string;
 }
 
-export const Button = ({
-  type,
-  label,
-  onClick,
-  mode,
-  disabled = false,
-  dataCy,
-  dataTestId,
-}: ButtonProps) => {
+export const Button = ({ type, label, onClick, mode, disabled = false, dataCy }: ButtonProps) => {
   return (
     <button
       type={type}
@@ -28,7 +19,6 @@ export const Button = ({
       className={["button", `button--${mode}`].join(" ")}
       disabled={disabled}
       data-cy={dataCy}
-      data-testid={dataTestId}
     >
       {label}
     </button>

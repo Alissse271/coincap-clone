@@ -4,15 +4,16 @@ import "./styles.scss";
 interface Props {
   primary?: boolean;
   size?: "small" | "medium" | "large";
+  dataCy?: string;
 }
 
-export const TableHead = ({ primary, size }: Props) => {
+export const TableHead = ({ primary, size, dataCy }: Props) => {
   const { width = 0 } = useWindowSize();
 
   const mode = primary ? "table__head--primary" : "table__head--secondary";
 
   return (
-    <thead className={["table__head", `table__head--${size}`, mode].join(" ")}>
+    <thead className={["table__head", `table__head--${size}`, mode].join(" ")} data-cy={dataCy}>
       <tr>
         {width > 768 && <th>Rank</th>}
         <th>Name</th>

@@ -49,7 +49,7 @@ export const CryptocurrenciesList = ({ onHoverVariant, currencies }: Props) => {
     <>
       <main className="cryptocurrencies" data-cy="cryptocurrencies">
         <table className="cryptocurrencies-table">
-          <TableHead primary size="medium" />
+          <TableHead primary size="medium" dataCy="table-head" />
           <tbody className="cryptocurrencies-table__body">
             {currencies.map(
               ({
