@@ -1,4 +1,4 @@
-import { CryptocurrenciesList, DefaultButton } from "components";
+import { CryptocurrenciesList, DefaultButton, Loader } from "components";
 import { useEffect, useState } from "react";
 import "./styles.scss";
 import { useQuery } from "@apollo/client";
@@ -19,7 +19,12 @@ export const HomePage = () => {
     fetchMore({ variables: { limit: limit + 10 } });
   }, [limit]);
 
-  if (loading) return <p>Loading...</p>;
+  if (loading)
+    return (
+      <div className="loader-container">
+        <Loader loading={true} color="#36d7b7" />
+      </div>
+    );
   if (error) return <p>Error</p>;
 
   const currencies = data.assets;

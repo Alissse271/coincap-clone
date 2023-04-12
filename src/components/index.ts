@@ -9,6 +9,7 @@ import { Portfolio } from "./Portfolio/Portfolio";
 import { PortfolioModal } from "./PortfolioModal/PortfolioModal";
 import { DefaultButton } from "./DefaultButton/DefaultButton";
 import { TableHead } from "./TableHead/TableHead";
+import { Loader } from "./Loader/Loader";
 
 export {
   CryptocurrenciesList,
@@ -23,4 +24,5 @@ export {
   Portal,
   PortalTarget,
   TableHead,
+  Loader,
 };

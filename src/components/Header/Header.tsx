@@ -27,14 +27,18 @@ export const Header = ({ onHoverVariant }: Props) => {
     large: { scale: 1.02 },
   };
 
-  if (loading) return <p>Loading...</p>;
+  if (loading)
+    return (
+      <div className="loader-container">
+        <p>Loading...</p>
+      </div>
+    );
   if (error) return <p>Error</p>;
 
   const currencies = data.assets;
 
   return (
     <header className="header" data-cy="header">
-      {loading && <p>Loading...</p>}
       <ul className="header-currencies" data-cy="header-currencies">
         {currencies.map(({ id, name, priceUsd }: Currency) => (
           <Link
