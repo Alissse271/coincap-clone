@@ -5,7 +5,7 @@ import { useQuery } from "@apollo/client";
 import { GET_ASSETS } from "apollo";
 
 export const HomePage = () => {
-  const [limit, setLimit] = useState<number>(10);
+  const [limit, setLimit] = useState<number>(20);
 
   const { error, loading, data, fetchMore } = useQuery(GET_ASSETS, {
     variables: { limit },

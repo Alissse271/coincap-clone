@@ -1,5 +1,4 @@
 import { AppContext } from "./AppContext";
-import { CurrencyContext, CurrencyContextProvider } from "./CurrencyContext";
 import { PortfolioContext, PortfolioContextProvider } from "./PortfolioContext";
 import {
   Currency,
@@ -11,13 +10,7 @@ import {
   PortfolioCurrencyContextProps,
 } from "./types";
 
-export {
-  CurrencyContextProvider,
-  CurrencyContext,
-  PortfolioContext,
-  PortfolioContextProvider,
-  AppContext,
-};
+export { PortfolioContext, PortfolioContextProvider, AppContext };
 export type {
   Currency,
   History,

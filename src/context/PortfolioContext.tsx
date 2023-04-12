@@ -1,4 +1,3 @@
-import axios from "axios";
 import { createContext, useEffect, useState } from "react";
 import {
   ContextProviderProps,
@@ -6,7 +5,6 @@ import {
   PortfolioCurrency,
   PortfolioCurrencyContextProps,
 } from "./types";
-import { coincapAPI } from "services";
 
 const portfolio: PortfolioCurrency[] = JSON.parse(localStorage.getItem("portfolio") || "[]");
 
@@ -49,12 +47,10 @@ export const PortfolioContextProvider = ({ children }: ContextProviderProps) => 
   const setTotalPrice = (price: string) => {
     setTotalPortfolioPrice(price);
   };
-  const updatePortfolio = async (id: string, amount: number) => {
+  const updatePortfolio = async (asset: Currency, id: string, amount: number) => {
     try {
-      const response = await coincapAPI.getCurrencyDetails(id);
-      const newCurrency: Currency = response;
-      const newPrice = (+newCurrency.priceUsd * amount).toFixed(2);
-
+      const newCurrency: Currency = asset;
+      const newPrice = (+newCurrency.priceUsd * +amount).toFixed(2);
       const updatedPortfolio = portfolioCurrencies.map((currency) => {
         if (currency.id === id) {
           return { ...currency, price: newPrice };

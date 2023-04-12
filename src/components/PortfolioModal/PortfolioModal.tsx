@@ -3,6 +3,8 @@ import { Button } from "components/Button/Button";
 import { PortfolioContext, PortfolioCurrency } from "context";
 import { useCallback, useContext, useEffect, useMemo } from "react";
 import "./styles.scss";
+import { useLazyQuery } from "@apollo/client";
+import { GET_ASSET } from "apollo";
 
 interface Props {
   isOpenModal: boolean;
@@ -17,6 +19,8 @@ export const PortfolioModal = ({ isOpenModal, toggleModal }: Props) => {
     setTotalPrice,
     updatePortfolio,
   } = useContext(PortfolioContext);
+
+  const [load, { data }] = useLazyQuery(GET_ASSET, {});
 
   const handleClose = useCallback(() => {
     toggleModal();
@@ -37,8 +41,18 @@ export const PortfolioModal = ({ isOpenModal, toggleModal }: Props) => {
   }, [totalAmount]);
 
   useEffect(() => {
-    portfolioCurrencies.map(({ id, amount }) => updatePortfolio(id, amount));
+    portfolioCurrencies.forEach(({ id }) => {
+      load({ variables: { id: id } });
+    });
   }, []);
+
+  useEffect(() => {
+    if (data) {
+      portfolioCurrencies.forEach(({ id, amount }) => {
+        updatePortfolio(data.asset, id, amount);
+      });
+    }
+  }, [data]);
 
   useEffect(() => {
     if (isOpenModal) {

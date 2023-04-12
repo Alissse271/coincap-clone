@@ -58,5 +58,5 @@ export interface PortfolioCurrencyContextProps {
   addCurrency: (currency: PortfolioCurrency, amount: number) => void;
   removeCurrency: (name: string) => void;
   setTotalPrice: (price: string) => void;
-  updatePortfolio: (id: string, amount: number) => void;
+  updatePortfolio: (asset: Currency, id: string, amount: number) => void;
 }

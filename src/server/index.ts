@@ -79,7 +79,10 @@ const AssetType = new GraphQLObjectType({
     volumeUsd24Hr: { type: new GraphQLNonNull(GraphQLString) },
     priceUsd: { type: new GraphQLNonNull(GraphQLString) },
     changePercent24Hr: { type: new GraphQLNonNull(GraphQLString) },
-    vwap24Hr: { type: new GraphQLNonNull(GraphQLString) },
+    vwap24Hr: {
+      type: new GraphQLNonNull(GraphQLString),
+      resolve: (asset) => asset.vwap24Hr || "0",
+    },
   }),
 });
 

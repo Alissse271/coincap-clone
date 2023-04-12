@@ -1,8 +1,8 @@
 import { AddToPortfolioModal, Button, TableHead } from "components";
-import { Currency, CurrencyContext, PortfolioCurrency } from "context";
+import { Currency, PortfolioCurrency } from "context";
 import { motion } from "framer-motion";
 import { useToggle, useWindowSize } from "hooks";
-import { useCallback, useContext, useState } from "react";
+import { useCallback, useState } from "react";
 import { generatePath, Link } from "react-router-dom";
 import { ROUTE } from "router";
 import { roundToBillion, roundWithPrecision, roundToMillion } from "utils";
@@ -22,7 +22,6 @@ export const CryptocurrenciesList = ({ onHoverVariant, currencies }: Props) => {
     price: "",
   });
 
-  // const { currencies } = useContext(CurrencyContext);
   const [isOpenModal, toggleModal] = useToggle();
   const { width = 0 } = useWindowSize();
 
