@@ -1,12 +1,13 @@
 import { Portfolio, PortfolioModal } from "components";
-import { Currency, CurrencyContext } from "context";
+import { Currency } from "context";
 import { motion } from "framer-motion";
 import { useToggle } from "hooks";
-import { useContext, useEffect } from "react";
 import { Link, generatePath } from "react-router-dom";
 import { ROUTE } from "router";
 import { roundWithPrecision } from "utils";
 import "./styles.scss";
+import { useQuery } from "@apollo/client";
+import { GET_ASSETS } from "apollo";
 
 interface Props {
   onHoverVariant?: "small" | "medium" | "large";
@@ -14,7 +15,10 @@ interface Props {
 
 export const Header = ({ onHoverVariant }: Props) => {
   const [isOpenModal, toggleModal] = useToggle();
-  const { fetchBasicCurrencies, basicCurrencies } = useContext(CurrencyContext);
+
+  const { error, loading, data } = useQuery(GET_ASSETS, {
+    variables: { limit: 3 },
+  });
 
   const variants = {
     rest: { scale: 1 },
@@ -23,13 +27,16 @@ export const Header = ({ onHoverVariant }: Props) => {
     large: { scale: 1.02 },
   };
 
-  useEffect(() => {
-    fetchBasicCurrencies();
-  }, []);
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error</p>;
+
+  const currencies = data.assets;
+
   return (
     <header className="header" data-cy="header">
+      {loading && <p>Loading...</p>}
       <ul className="header-currencies" data-cy="header-currencies">
-        {basicCurrencies.map(({ id, name, priceUsd }: Currency) => (
+        {currencies.map(({ id, name, priceUsd }: Currency) => (
           <Link
             key={id}
             to={generatePath(ROUTE.HOME + ROUTE.DETAILS, {

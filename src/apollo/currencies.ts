@@ -35,3 +35,12 @@ export const GET_ASSET = gql`
     }
   }
 `;
+
+export const GET_ASSET_HISTORY = gql`
+  query GetAssetHistory($id: String!) {
+    assetHistory(id: $id) {
+      priceUsd
+      time
+    }
+  }
+`;

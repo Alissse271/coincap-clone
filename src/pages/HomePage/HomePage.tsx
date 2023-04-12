@@ -1,22 +1,22 @@
 import { CryptocurrenciesList, DefaultButton } from "components";
-import { CurrencyContext } from "context";
-import { useContext, useEffect } from "react";
+import { useEffect, useState } from "react";
 import "./styles.scss";
 import { useQuery } from "@apollo/client";
 import { GET_ASSETS } from "apollo";
 
 export const HomePage = () => {
-  const { showMoreCurrencies, fetchCurrencies, limit } = useContext(CurrencyContext);
-  const handleShowMore = () => {
-    showMoreCurrencies();
-  };
+  const [limit, setLimit] = useState<number>(10);
 
   const { error, loading, data, fetchMore } = useQuery(GET_ASSETS, {
-    variables: { limit: 20 },
+    variables: { limit },
   });
 
+  const showMoreCurrencies = async () => {
+    setLimit((prevLimit: number) => prevLimit + 10);
+  };
+
   useEffect(() => {
-    fetchCurrencies(limit);
+    fetchMore({ variables: { limit: limit + 10 } });
   }, [limit]);
 
   if (loading) return <p>Loading...</p>;
@@ -32,7 +32,7 @@ export const HomePage = () => {
           primary
           type="button"
           label="View more"
-          onClick={handleShowMore}
+          onClick={showMoreCurrencies}
           dataCy="view-more-button"
         />
       </>
